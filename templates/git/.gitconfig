@@ -1,0 +1,35 @@
+[core]
+  editor = vim
+[alias]
+  unstage = reset HEAD --
+  last = log -1 HEAD
+  last5 = log -5 --oneline --decorate
+  last15 = log -15 --oneline --decorate
+  last30 = log -30 --oneline --decorate
+  logall = log --all --pretty=format:'%C(auto)%h%d %<|(95,trunc)%s %<|(115,trunc)%Cgreen%cr %Cblue%<|(150,trunc)%ae'
+  files = show --pretty="format:" --name-only -r
+  br = branch -va
+  co = checkout
+  st = status
+  ru = remote update
+  rv = remote -v
+  a = !git add . && git commit
+  puff = pull --ff-only
+  puffom = pull --ff-only origin master
+  puffum = pull --ff-only upstream master
+  pushom = push origin master
+  pushum = push upstream master
+  pr = "!f() { git fetch $1 pull/$2/head:pull_$2; git co pull_$2; }; f"
+[merge]
+  conflictstyle = diff3
+[color "branch"]
+  current = green reverse
+  local = green
+  remote = yellow
+[color "status"]
+  added = green
+  changed = yellow
+  untracked = cyan
+[user]
+  name = {{ git_username }}
+  email = {{ git_email }}

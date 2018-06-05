@@ -1,0 +1,10 @@
+---
+- name: Install git
+  package:
+    name: git
+    state: latest
+
+- name: Copy .gitconfig to user profile
+  template: src=git/.gitconfig dest=~/.gitconfig
+  become: yes
+  become_user: "{{ username }}"

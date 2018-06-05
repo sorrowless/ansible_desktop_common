@@ -1,0 +1,10 @@
+---
+# Username to become
+username: user
+
+git_username: user
+git_email: user@user.org
+# Dict with ssh configs
+ssh_config_hosts: {}
+
+backups_encryption_key: ""

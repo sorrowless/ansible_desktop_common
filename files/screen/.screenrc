@@ -1,0 +1,57 @@
+# Custom message on monitoring activity
+activity "Hey, man, there is something happened in window %n (%t), look on it"
+
+# Don't leave strings from file on screen after exiting vim, emacs etc.
+altscreen on
+
+### Start remap escape to Alt+a
+# We can't just remap escape to Alt+a in screen, so workaround is needed
+## reset escape key to the default
+escape ^Aa
+
+## auxiliary register
+register S ^A
+
+## Alt + a produces ^A and acts as an escape key
+bindkey "^[a" process S
+### End remap escape to Alt+a
+
+# Store hardcopies in home
+hardcopydir /tmp
+
+# Keybindings
+# Rename current pane
+bind a title
+# Reload config
+bind r source ~/.screenrc
+
+# Use zsh
+shell -$SHELL
+
+# Manage silence monitoring
+silencewait 15
+
+# Other options
+term "xterm-256color"
+attrcolor b ".I"
+defbce "on"
+
+# Big scrollback
+defscrollback 10240
+
+# No annoying startup message
+startup_message off
+
+# Display the status line
+hardstatus on
+hardstatus alwayslastline
+hardstatus string "%{.kW}%-w%{.bW}%t [%n]%{-}%+w %=%{..G} %H %{..Y} %Y/%m/%d %c:%s"
+
+# Setup screens
+bind c screen 1
+bind ^c screen 1
+bind 0 select 10
+screen 1
+
+# Switch to the first screen
+select 0

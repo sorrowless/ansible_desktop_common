@@ -1,0 +1,82 @@
+---
+- name: Copy script for external non-HiDPI monitor usage with XPS
+  copy: src=dotcommon/.setup_external_monitor.sh dest=~/.setup_external_monitor.sh
+  become: yes
+  become_user: "{{ username }}"
+
+- name: Install 'v' utility for fast vim recent files open
+  git:
+    repo: https://github.com/rupa/v.git
+    dest: /opt/v
+
+- name: Place a symlink of 'v' to PATH
+  file:
+    src: /opt/v/v
+    dest: /usr/local/bin/v
+    state: link
+
+- name: Install 'tldr' utility as a short version of 'man'
+  git:
+    repo: https://github.com/pepa65/tldr-bash-client.git
+    dest: /opt/tldr-bash-client
+
+- name: Place a symlink of tldr to PATH
+  file:
+    src: /opt/tldr-bash-client/tldr
+    dest: /usr/local/bin/tldr
+    state: link
+
+- name: Install 'cheat' utility - one more short 'man'
+  pip:
+    name: cheat
+
+- name: Install ncdu utility to easier view dir sizes
+  package:
+    name: ncdu
+    state: latest
+
+- name: Install ranger file manager
+  package:
+    name: ranger
+    state: latest
+
+- name: Install parallel utility to run shell tasks in parallel
+  package:
+    name: parallel
+    state: latest
+
+- name: Copy ssh config
+  template:
+    src: dotcommon/sshconfig
+    dest: "~/.ssh/config"
+  become: yes
+  become_user: "{{ username }}"
+
+- name: Install taskwarrior to be a task manager
+  package:
+    name: task
+    state: latest
+
+- name: Install paclog to be able to look at commit messages of updates
+  copy:
+    src: dotcommon/paclog
+    dest: /usr/bin/paclog
+    mode: u=rwx,g=rx,o=rx
+
+- name: Install acpi to be able to show battery in console
+  package:
+    name: acpi
+    state: latest
+
+- name: Install FZF to have fuzzy search in console with preview
+  package:
+    name: fzf
+    state: latest
+
+- include: sysctl.yml
+
+- name: Install battshow to be able to view battery status in console
+  copy:
+    src: dotcommon/battshow
+    dest: /usr/bin/battshow
+    mode: u=rwx,g=rx,o=rx

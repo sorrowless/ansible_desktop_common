@@ -1,0 +1,47 @@
+---
+- name: Backup | Create user private tools directory
+  file:
+    path: ~/.private
+    state: directory
+    mode: 0750
+  become: yes
+  become_user: "{{ username }}"
+
+- name: Backup | Create user backup directory
+  file:
+    path: /backup
+    state: directory
+    owner: "{{ username }}"
+    group: "{{ username }}"
+    mode: 0750
+
+- name: Backup | Copy backup script to "{{ username }}" home
+  template:
+    src: backup/backup.sh
+    dest: ~/.private/
+    mode: 0750
+  become: yes
+  become_user: "{{ username }}"
+
+- name: Backup | Copy environment file to "{{ username }}" home
+  template:
+    src: backup/env
+    dest: ~/.private/
+  become: yes
+  become_user: "{{ username }}"
+
+- name: Backup | Ensure needed systemctl service exists
+  template:
+    src: backup/rclone.service
+    dest: /etc/systemd/system/
+
+- name: Backup | Ensure needed systemctl timer exists
+  copy:
+    src: backup/rclone.timer
+    dest: /etc/systemd/system/
+
+- name: Backup | Enable systemd timer related to backups
+  systemd:
+    name: rclone.timer
+    daemon-reload: yes
+    enabled: yes

@@ -1,0 +1,10 @@
+---
+- name: Install tmux
+  package:
+    name: tmux
+    state: latest
+
+- name: Copy .tmux.conf to user home directory
+  copy: src=tmux/.tmux.conf dest=~/.tmux.conf
+  become: yes
+  become_user: "{{ username }}"

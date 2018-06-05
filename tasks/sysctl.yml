@@ -1,0 +1,6 @@
+---
+- name: Copy custom sysctl configuration to the needed place
+  copy:
+    src: dotcommon/99-custom.conf
+    dest: /etc/sysctl.d/99-custom.conf
+    mode: u=rw,g=r,o=r

@@ -1,0 +1,12 @@
+[Unit]
+Description=Rclone service which backups user data
+
+[Service]
+User={{ username }}
+Group={{ username }}
+WorkingDirectory=/home/{{ username }}
+EnvironmentFile=/home/{{ username }}/.private/env
+ExecStart=/home/{{ username }}/.private/backup.sh /home/{{ username }}/Documents/private_documents /backup private_documents
+
+[Install]
+WantedBy=multi-user.target

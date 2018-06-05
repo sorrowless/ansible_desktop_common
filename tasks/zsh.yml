@@ -1,0 +1,16 @@
+---
+- name: Install ZSH
+  package:
+    name: zsh
+    state: latest
+
+- name: Check user existance and create if does not exists
+  user:
+    group: "{{ username }}"
+    name: "{{ username }}"
+    shell: /usr/bin/zsh
+
+- name: Copy .zshrc to user profile
+  copy: src=zsh/.zshrc dest=~/.zshrc
+  become: yes
+  become_user: "{{ username }}"

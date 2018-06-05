@@ -1,0 +1,10 @@
+{% for host in ssh_config_hosts %}
+Host {{ host['alias'] }}
+  Hostname {{ host['hostname'] }}
+  User {{ host['user'] }}
+  {% if 'identity_file' in host %}
+IdentityFile {{ host['identity_file'] }}
+  {% endif %}
+Port {{ host['port'] }}
+
+{% endfor %}

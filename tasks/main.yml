@@ -1,0 +1,11 @@
+---
+- include_tasks: backup.yml
+- include_tasks: dotcommon.yml
+  tags: 'dotcommon'
+- include_tasks: git.yml
+- include_tasks: rofi.yml
+- include_tasks: screen.yml
+- include_tasks: sysctl.yml
+- include_tasks: tmux.yml
+- include_tasks: vim.yml
+- include_tasks: zsh.yml

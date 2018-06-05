@@ -1,0 +1,17 @@
+#!/bin/bash
+
+ret="$(acpi 2>/dev/null)"
+if [ -z "$ret" ]; then
+  exit 0
+fi
+percent="$(echo $ret | awk '{ print $4}' | awk -F',' '{ print $1 }')"
+tm="$(echo $ret | awk '{print $5}' | awk -F ":" '{print $1":"$2}')"
+if echo $ret | grep -q "Discharging"
+then
+  echo "▾$percent/$tm"
+elif echo $ret | grep -q "Full"
+then
+  echo "▴$percent"
+else
+  echo "▴$percent/$tm"
+fi
