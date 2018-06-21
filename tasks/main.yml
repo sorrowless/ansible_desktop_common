@@ -5,6 +5,8 @@
 - include_tasks: git.yml
 - include_tasks: rofi.yml
 - include_tasks: screen.yml
+- include_tasks: sddm.yml
+  tags: 'sddm'
 - include_tasks: sysctl.yml
 - include_tasks: tmux.yml
 - include_tasks: vim.yml
