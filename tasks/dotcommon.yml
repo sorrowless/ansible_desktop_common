@@ -80,3 +80,14 @@
     src: dotcommon/battshow
     dest: /usr/bin/battshow
     mode: u=rwx,g=rx,o=rx
+
+- name: Install 'shost' utility for fast search in SSH config
+  git:
+    repo: https://github.com/sorrowless/tools.git
+    dest: /opt/tools
+
+- name: Place a symlink of 'shost' to PATH
+  file:
+    src: /opt/tools/sshhost.py
+    dest: /usr/local/bin/shost
+    state: link
