@@ -58,7 +58,9 @@ fi
 autoload zkbd
 [[ ! -d ~/.zkbd ]] && mkdir ~/.zkbd
 if [[ ! -f ~/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE} ]]; then
-  zkbd
+  echo "Your zkbd is not configured. We need it to properly bind keyboard \
+        keys, so just run 'zkbd' from command line"
+  # zkbd
 else
   source ~/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE}
   #setup key accordingly
@@ -195,6 +197,9 @@ alias aved='ansible-vault edit'
 alias avdec='ansible-vault decrypt'
 alias avenc='ansible-vault encrypt'
 alias apl='ansible-playbook'
+# alias for easy decrypt inline-vault vars. Use like
+# unvault secrets.yaml globals.snow_ttl_export_account.username
+alias unvault='f() { yq read $1 $2 | ansible-vault decrypt };f'
 
 # Fzf aliases
 fkill() {
