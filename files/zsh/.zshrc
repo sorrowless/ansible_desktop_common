@@ -288,6 +288,11 @@ if [ ! -d "${TPM}" ]; then
   git clone https://github.com/tmux-plugins/tpm "${TPM}"
 fi
 
+# Pyenv activation
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+
 # To avoid getting this rc file bigger, just get settings from other files
 for FILE in ~/.rc/* ; do
   source $FILE
