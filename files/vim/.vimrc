@@ -20,6 +20,11 @@ Plugin 'Yggdroot/indentLine'
 Plugin 'tpope/vim-fugitive'
 Plugin 'junegunn/gv.vim'
 Plugin 'roxma/vim-paste-easy'
+" To have ansible syntax
+Plugin 'pearofducks/ansible-vim'
+" To be able to transcode ansible inline-vault
+Plugin 'rm-you/vim-vault-inline'
+nmap ,v :VaultEncryptionToggle<CR>
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -223,6 +228,6 @@ nmap 9 9gt
 " Show EOL chars
 set list
 "set listchars=eol:↵
-set listchars=eol:¬
+set listchars=tab:▸\ ,eol:¬
 " highlight eol char
 highlight NonText ctermfg=236
