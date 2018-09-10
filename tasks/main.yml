@@ -1,13 +1,13 @@
 ---
-- include_tasks: backup.yml
-- include_tasks: dotcommon.yml
+- import_tasks: backup.yml
+- import_tasks: dotcommon.yml
   tags: 'dotcommon'
-- include_tasks: git.yml
-- include_tasks: rofi.yml
-- include_tasks: screen.yml
-- include_tasks: sddm.yml
+- import_tasks: git.yml
+- import_tasks: rofi.yml
+- import_tasks: screen.yml
+- import_tasks: sddm.yml
   tags: 'sddm'
-- include_tasks: sysctl.yml
-- include_tasks: tmux.yml
-- include_tasks: vim.yml
-- include_tasks: zsh.yml
+- import_tasks: sysctl.yml
+- import_tasks: tmux.yml
+- import_tasks: vim.yml
+- import_tasks: zsh.yml
