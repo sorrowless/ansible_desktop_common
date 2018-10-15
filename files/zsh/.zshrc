@@ -294,6 +294,11 @@ if command -v pyenv 1>/dev/null 2>&1; then
   eval "$(pyenv init -)"
 fi
 
+# Rbenv activation
+if command -v rbenv 1>/dev/null 2>&1; then
+  eval "$(rbenv init -)"
+fi
+
 # To avoid getting this rc file bigger, just get settings from other files
 for FILE in ~/.rc/* ; do
   source $FILE
