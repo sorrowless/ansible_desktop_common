@@ -12,6 +12,7 @@ Plugin 'VundleVim/Vundle.vim'
 
 Plugin 'junegunn/fzf'
 Plugin 'pbogut/fzf-mru.vim'
+" Open NerdTree by C-n
 Plugin 'scrooloose/nerdtree'
 Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plugin 'scrooloose/syntastic'
@@ -20,8 +21,6 @@ Plugin 'Yggdroot/indentLine'
 Plugin 'tpope/vim-fugitive'
 Plugin 'junegunn/gv.vim'
 Plugin 'roxma/vim-paste-easy'
-" To have ansible syntax
-Plugin 'pearofducks/ansible-vim'
 " To be able to transcode ansible inline-vault
 Plugin 'rm-you/vim-vault-inline'
 nmap ,v :VaultEncryptionToggle<CR>
@@ -31,6 +30,8 @@ filetype plugin indent on    " required
 
 " IndentLine plugin settings
 let g:indentLine_char = '▏'
+let g:indentLine_setConceal = 2
+let g:indentLine_concealcursor = 'c'
 
 " NerdTree plugin settings
 map <C-n> :NERDTreeToggle<CR>
