@@ -1,5 +1,6 @@
 ---
-- import_tasks: backup.yml
+#- import_tasks: backup.yml
+- import_tasks: lsyncd.yml
 - import_tasks: dotcommon.yml
   tags: 'dotcommon'
 - import_tasks: git.yml

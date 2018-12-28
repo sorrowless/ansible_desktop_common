@@ -1,0 +1,14 @@
+[Unit]
+Description=Lsyncd service which backups user data
+After=network.target
+
+[Service]
+User={{ username }}
+Group={{ username }}
+PermissionsStartOnly=true
+ExecStart=/usr/bin/lsyncd -nodaemon -log Exec /etc/lsyncd.conf.lua
+Restart=on-failure
+NoNewPrivileges=yes
+
+[Install]
+WantedBy=multi-user.target

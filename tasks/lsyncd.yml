@@ -1,0 +1,17 @@
+---
+- name: Backup | Ensure needed systemctl service exists
+  template:
+    src: backup/lsyncd.service
+    dest: /etc/systemd/system/
+
+- name: Backup | Ensure lsyncd config
+  copy:
+  template:
+    src: backup/lsyncd.conf.lua
+    dest: /etc/lsyncd.conf.lua
+
+- name: Backup | Enable systemd service
+  systemd:
+    name: lsyncd.service
+    daemon-reload: yes
+    enabled: yes
