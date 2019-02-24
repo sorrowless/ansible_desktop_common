@@ -1,0 +1,21 @@
+#!/bin/bash
+
+TMPDIR=${1:-"/tmp"}
+BCOLOR=${2:-"2F343F"}
+SLEEPTIME=${3:-60}
+
+if ! command -v kdesetw >/dev/null; then
+  echo "Wallpaper script does not found, exiting"
+  exit 2
+elif ! command -v pscircle >/dev/null ; then
+  echo "Pscircle bin does not found, exiting"
+  exit 2
+fi
+
+while true; do
+  TMP=$(mktemp ${TMPDIR}/tmp.XXXXX)
+  pscircle --output=$TMP --background-color=${BCOLOR}
+  sleep ${SLEEPTIME}
+  kdesetw $TMP
+  rm -rf $TMP
+done

@@ -91,3 +91,6 @@
     src: /opt/tools/sshhost.py
     dest: /usr/local/bin/shost
     state: link
+
+- name: Include pscircle tasks
+  include_tasks: pscircle.yml

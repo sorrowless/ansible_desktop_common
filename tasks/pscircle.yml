@@ -1,0 +1,34 @@
+---
+- name: Pscircle | Ensure target directory
+  file:
+    state: directory
+    path: /opt/pscircle
+
+- name: Pscircle | Ensure target files
+  copy:
+    src: "pscircle/{{ item }}"
+    dest: "/opt/pscircle/{{ item }}"
+    mode: 0755
+    owner: root
+    group: root
+  with_items:
+    - kdesetw
+    - kdesetw_service
+
+- name: Pscircle | Place a symlink of files to PATH
+  file:
+    src: "/opt/pscircle/{{ item }}"
+    dest: "/usr/local/bin/{{ item }}"
+    state: link
+  with_items:
+    - kdesetw
+    - kdesetw_service
+
+- name: Pscircle | Ensure systemd service
+  template:
+    src: pscircle/pscircle.service
+    dest: /etc/systemd/system/pscircle.service
+    owner: root
+    group: root
+    mode: 0644
+

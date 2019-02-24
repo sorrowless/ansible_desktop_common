@@ -1,0 +1,15 @@
+[Unit]
+Description=Pscircle wallpaper service
+After=network.target
+
+[Service]
+Environment=DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/{{ user_uid }}/bus
+User={{ username }}
+Group={{ username }}
+PermissionsStartOnly=true
+ExecStart=/usr/local/bin/kdesetw_service
+Restart=on-failure
+NoNewPrivileges=yes
+
+[Install]
+WantedBy=multi-user.target

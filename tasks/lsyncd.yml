@@ -5,7 +5,6 @@
     dest: /etc/systemd/system/
 
 - name: Backup | Ensure lsyncd config
-  copy:
   template:
     src: backup/lsyncd.conf.lua
     dest: /etc/lsyncd.conf.lua
