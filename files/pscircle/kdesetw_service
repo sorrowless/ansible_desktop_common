@@ -14,7 +14,7 @@ fi
 
 while true; do
   TMP=$(mktemp ${TMPDIR}/tmp.XXXXX)
-  pscircle --output=$TMP --background-color=${BCOLOR} --interval=5
+  pscircle --output=$TMP --background-color=${BCOLOR} --interval=5 --collapse-threads=1 --tree-radius-increment=250 --tree-center=-300.0:0.0 --dot-border-width=2 --tree-font-size=20
   sleep ${SLEEPTIME}
   kdesetw $TMP
   rm -rf $TMP
