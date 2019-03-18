@@ -14,3 +14,18 @@
   copy:
     content: 'alias qrft="qr-filetransfer -d"'
     dest: "~/.rc/qr-filetransfer"
+
+- name: Tools | Install keefind
+  pip:
+    name: keefind
+    executable: /usr/bin/pip3
+  become: True
+
+- name: Tools | Place keefind aliases to ~/.rc directory
+  copy:
+    content: |
+      alias kf="kf -v"
+      alias kfv="kf -vvv"
+      export KP_DATABASE=~/Documents/sync/kps
+      export KP_PASSWORD_FILE=/tmp/kpp
+    dest: "~/.rc/keefind"
