@@ -1,0 +1,79 @@
+# Common aliases
+alias cp='cp -iv'
+alias rcp='rsync -v --progress'
+alias rmv='rsync -v --progress --remove-source-files'
+alias mv='mv -iv'
+alias rm='rm -iv'
+alias rmdir='rmdir -v'
+alias ln='ln -v'
+alias chmod="chmod -c"
+alias chown="chown -c"
+alias du='du -hc'
+alias df='df -h'
+alias svim='sudo vim'
+alias scat='openssl x509 -text -noout -in'
+alias sctl='systemctl'
+alias sclu='systemctl list-units'
+alias ipsave='sudo iptables-save'
+if command -v colordiff > /dev/null 2>&1; then
+    alias diff="colordiff -Nar"
+    alias diffy="colordiff -Nar -y --suppress-common-lines"
+else
+    alias diff="diff -Nar"
+    alias diffy="diff -Nar -y --suppress-common-lines"
+fi
+alias grep='grep --colour=auto'
+alias egrep='egrep --colour=auto'
+alias clip='fc -e - 2>/dev/null | xsel -i -b'
+alias speedtest="curl -s -w 'Testing Website Response Time for: %{url_effective}\n\nLookup Time:\t\t%{time_namelookup}\nConnect Time:\t\t%{time_connect}\nPre-transfer Time:\t%{time_pretransfer}\nStart-transfer Time:\t%{time_starttransfer}\n\nTotal Time:\t\t%{time_total}\n' -o /dev/null"
+alias gri='f() { grep -ri $1 ./ };f'
+
+# Git aliases
+alias gst='git status'
+alias gco='git checkout'
+alias grv='git remote -v'
+
+# Translation aliases
+alias enru='trans en:ru -b'
+alias ruen='trans ru:en -b'
+
+# Docker aliases
+alias dps='sudo docker ps'
+alias dpsa='sudo docker ps --all'
+alias dips='sudo docker images'
+
+# Ansible aliases
+alias aved='ansible-vault edit'
+alias avdec='ansible-vault decrypt'
+alias avenc='ansible-vault encrypt'
+alias apl='ansible-playbook'
+# alias for easy decrypt inline-vault vars. Use like
+# unvault secrets.yaml globals.snow_ttl_export_account.username
+alias unvault='f() { yq read $1 $2 | ansible-vault decrypt };f'
+
+# Fzf aliases
+fkill() {
+  local pid
+  pid=$(ps -ef | sed 1d | /usr/bin/fzf -m | awk '{print $2}')
+
+  if [ "x$pid" != "x" ]
+  then
+    echo $pid | xargs kill -${1:-9}
+  fi
+}
+alias fzf='fzf --height 70% --border --preview "head -100 {}"'
+alias vif='vim $(fzf)'
+alias open='xdg-open "$(fzf)" 2>/dev/null'
+
+PLATFORM=`uname`
+if [ "${PLATFORM}" != "Darwin" ]; then
+  alias ls='ls --color=auto --human-readable --group-directories-first --classify'
+  alias ip='ip -4 -o'
+else
+  alias ls='ls -G'
+fi
+alias feh='feh -x -F -Y'
+alias less='less -S'
+# you know, that's funny ;)
+alias fuck='sudo $(fc -ln -1)'
+alias wttr='curl http://wttr.in/'

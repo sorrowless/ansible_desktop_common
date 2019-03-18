@@ -1,0 +1,36 @@
+# VirtualenvWrapper
+export WORKON_HOME=~/.virtualenvs
+if [ -f /usr/bin/virtualenvwrapper.sh ]; then
+  source /usr/bin/virtualenvwrapper.sh
+else
+  echo "virtualenvwrapper script for Python not found, skip load it"
+fi
+#unset GREP_OPTIONS
+
+# use 'up' script instead of typing cd ../../../.. endlessly
+UPTOOL="${HOME}/.config/up/up.sh"
+if [ ! -f "${UPTOOL}" ]; then
+  echo "'up' script does not exist, download it"
+  curl --create-dirs -o "${UPTOOL}" https://raw.githubusercontent.com/sorrowless/up/master/up.sh 2>/dev/null
+  chmod u+x "${UPTOOL}"
+  source "${UPTOOL}"
+else
+  source "${UPTOOL}"
+fi
+
+# I always use tmux, so put it here
+TPM="${HOME}/.tmux/plugins/tpm"
+if [ ! -d "${TPM}" ]; then
+  echo "Tmux plugin manager does not loaded, download it"
+  git clone https://github.com/tmux-plugins/tpm "${TPM}"
+fi
+
+# Pyenv activation
+if command -v pyenv 1>/dev/null 2>&1; then
+  eval "$(pyenv init -)"
+fi
+
+# Rbenv activation
+if command -v rbenv 1>/dev/null 2>&1; then
+  eval "$(rbenv init -)"
+fi

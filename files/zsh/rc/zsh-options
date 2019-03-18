@@ -1,0 +1,20 @@
+# History options
+export HISTSIZE=100000
+export HISTFILE="$HOME/.history"
+export SAVEHIST=$HISTSIZE
+setopt inc_append_history
+setopt hist_ignore_dups
+setopt hist_ignore_space
+setopt noflowcontrol
+
+# set 256 colors for terminal
+export TERM=screen-256color
+
+# if you will not set promptsubst then your prompt will be computed only one time
+# when it will be set first time
+setopt promptsubst
+
+autoload -U colors && colors
+
+# M-b and M-f (backward-word and forward-word) would jump over each word separated by a '/'
+export WORDCHARS='*?[]~=&;!#$%^(){}'

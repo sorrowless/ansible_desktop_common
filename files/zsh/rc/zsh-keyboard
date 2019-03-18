@@ -1,0 +1,37 @@
+autoload zkbd
+[[ ! -d ~/.zkbd ]] && mkdir ~/.zkbd
+if [[ ! -f ~/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE} ]]; then
+  echo "Your zkbd is not configured. We need it to properly bind keyboard \
+        keys, so just run 'zkbd' from command line"
+  # zkbd
+else
+  source ~/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE}
+  #setup key accordingly
+  [[ -n "${key[Home]}"    ]]  && bindkey  "${key[Home]}"    beginning-of-line
+  [[ -n "${key[End]}"     ]]  && bindkey  "${key[End]}"     end-of-line
+  [[ -n "${key[Insert]}"  ]]  && bindkey  "${key[Insert]}"  overwrite-mode
+  [[ -n "${key[Delete]}"  ]]  && bindkey  "${key[Delete]}"  delete-char
+  [[ -n "${key[Up]}"      ]]  && bindkey  "${key[Up]}"      up-line-or-history
+  [[ -n "${key[Down]}"    ]]  && bindkey  "${key[Down]}"    down-line-or-history
+  [[ -n "${key[Left]}"    ]]  && bindkey  "${key[Left]}"    backward-char
+  [[ -n "${key[Right]}"   ]]  && bindkey  "${key[Right]}"   forward-char
+fi
+
+# Allow to use 'Ctrl+x e' to edit multiline commands in $EDITOR
+autoload -U edit-command-line
+zle -N edit-command-line
+bindkey '^xe' edit-command-line
+bindkey '^x^e' edit-command-line
+
+zle -N zle-line-init
+zle -N zle-keymap-select
+# Shortcuts
+bindkey -e
+bindkey 'ii' vi-cmd-mode
+bindkey ',,' insert-last-word
+bindkey '^[.' insert-last-word
+bindkey '^R' history-incremental-search-backward
+bindkey '<<' history-incremental-search-backward
+bindkey '^H' backward-kill-word
+bindkey '^b' backward-word
+bindkey '^f' forward-word

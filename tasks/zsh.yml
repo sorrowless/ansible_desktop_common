@@ -3,14 +3,33 @@
   package:
     name: zsh
     state: latest
+  become: yes
 
 - name: Check user existance and create if does not exists
   user:
     group: "{{ username }}"
     name: "{{ username }}"
     shell: /usr/bin/zsh
+  become: yes
+  become_user: root
 
 - name: Copy .zshrc to user profile
   copy: src=zsh/.zshrc dest=~/.zshrc
-  become: yes
-  become_user: "{{ username }}"
+
+- name: Copy keyboard-related zsh configuration
+  copy: src=zsh/rc/zsh-keyboard dest=~/.rc/
+
+- name: Copy alias zsh configuration
+  copy: src=zsh/rc/zsh-aliases dest=~/.rc/
+
+- name: Copy options and exports zsh configuration
+  copy: src=zsh/rc/zsh-options dest=~/.rc/
+
+- name: Copy zsh functions
+  copy: src=zsh/rc/zsh-functions dest=~/.rc/
+
+- name: Copy zsh configuration for external tools
+  copy: src=zsh/rc/zsh-tools dest=~/.rc/
+
+- name: Copy zsh completion configuration
+  copy: src=zsh/rc/zsh-completion dest=~/.rc/
