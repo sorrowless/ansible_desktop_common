@@ -12,3 +12,7 @@
 - import_tasks: tmux.yml
 - import_tasks: vim.yml
 - import_tasks: zsh.yml
+- import_tasks: media.yml
+  tags: 'media'
+- import_tasks: tools.yml
+  tags: 'tools'

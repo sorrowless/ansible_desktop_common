@@ -1,0 +1,16 @@
+---
+- name: Tools | Install qr-filetransfer tool
+  pip:
+    name: qr-filetransfer
+    executable: /usr/bin/pip3
+  become: True
+
+- name: Tools | Ensure ~/.rc directory
+  file:
+    state: directory
+    path: "~/.rc"
+
+- name: Tools | Place qr-filetransfer aliases to ~/.rc directory
+  copy:
+    content: 'alias qrft="qr-filetransfer -d"'
+    dest: "~/.rc/qr-filetransfer"

@@ -1,0 +1,20 @@
+---
+- name: Media | Install console PulseAudio mixer
+  pip:
+    name: pulsemixer
+    executable: /usr/bin/pip3
+  become: True
+
+- name: Media | Ensure ~/.rc directory
+  file:
+    state: directory
+    path: "~/.rc"
+
+- name: Media | Place pulsemixer aliases to ~/.rc directory
+  copy:
+    content: 'alias pm="pulsemixer"'
+    dest: "~/.rc/pulsemixer"
+
+- name: Media | Install imgp
+  aur:
+    name: imgp
