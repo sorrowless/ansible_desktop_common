@@ -5,6 +5,9 @@ Host {{ host['alias'] }}
   {% if 'identity_file' in host %}
 IdentityFile {{ host['identity_file'] }}
   {% endif %}
+  {% if 'proxyjump' in host %}
+ProxyJump {{ host['proxyjump'] }}
+  {% endif %}
 Port {{ host['port'] }}
 
 {% endfor %}
