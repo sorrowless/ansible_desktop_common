@@ -22,6 +22,9 @@
   pr = "!f() { git fetch $1 pull/$2/head:pull_$2; git co pull_$2; }; f"
 [merge]
   conflictstyle = diff3
+  tool = vimdiff
+[mergetool]
+  prompt = false
 [color "branch"]
   current = green reverse
   local = green
