@@ -54,9 +54,21 @@ fi
 
 # For code of used in prompt functions, look at ~/.rc/zsh-functions file.
 # it MUST be in singlequotes. Otherwise, promptsubst will not be working
+# $(who_am_i) %{$fg[white]%}in%{$reset_color%} %{$fg_no_bold[cyan]%}%3~%{$reset_color%} $(gitbranch)
 PROMPT='
-$(who_am_i) %{$fg[white]%}in%{$reset_color%} %{$fg_no_bold[cyan]%}%d%{$reset_color%} $(gitbranch)
+%{$fg_no_bold[cyan]%}%3~%{$reset_color%} $(gitbranch)
 $(red_green) '
+
+del-prompt-on-enter() {
+  PROMPT='
+$(red_green) '
+  zle reset-prompt
+  PROMPT='
+%{$fg_no_bold[cyan]%}%3~%{$reset_color%} $(gitbranch)
+$(red_green) '
+  zle accept-line
+}
+
 # set right prompt side
 function zle-line-init zle-keymap-select {
     VIM_PROMPT="%{$fg_bold[yellow]%} [% NORMAL]% %{$reset_color%}"
