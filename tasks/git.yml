@@ -8,3 +8,8 @@
   template: src=git/.gitconfig dest=~/.gitconfig
   become: yes
   become_user: "{{ username }}"
+
+- name: Install tig
+  package:
+    name: tig
+    state: latest
