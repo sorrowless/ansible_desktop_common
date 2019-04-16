@@ -216,15 +216,15 @@ command! W :execute ':silent w !sudo tee % > /dev/null' | :edit!
 command! Wq wq
 
 " Map Alt+<number> to switch between tabs
-nmap 1 1gt
-nmap 2 2gt
-nmap 3 3gt
-nmap 4 4gt
-nmap 5 5gt
-nmap 6 6gt
-nmap 7 7gt
-nmap 8 8gt
-nmap 9 9gt
+"nmap 1 1gt
+"nmap 2 2gt
+"nmap 3 3gt
+"nmap 4 4gt
+"nmap 5 5gt
+"nmap 6 6gt
+"nmap 7 7gt
+"nmap 8 8gt
+"nmap 9 9gt
 
 " Show EOL chars
 set list
