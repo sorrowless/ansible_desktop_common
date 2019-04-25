@@ -23,6 +23,13 @@ Plugin 'junegunn/gv.vim'
 Plugin 'roxma/vim-paste-easy'
 " To be able to transcode ansible inline-vault
 Plugin 'rm-you/vim-vault-inline'
+" Python suggestions for function names
+Plugin 'davidhalter/jedi-vim'
+" Tab autocompletion
+Plugin 'ervandew/supertab'
+" Easy comment with gC
+Plugin 'tomtom/tcomment_vim'
+Plugin 'romainl/Apprentice'
 nmap ,v :VaultEncryptionToggle<CR>
 
 call vundle#end()            " required
@@ -30,7 +37,7 @@ filetype plugin indent on    " required
 
 " IndentLine plugin settings
 let g:indentLine_char = '▏'
-let g:indentLine_setConceal = 2
+let g:indentLine_setConceal = 0
 let g:indentLine_concealcursor = 'c'
 
 " NerdTree plugin settings
@@ -56,6 +63,7 @@ map <C-p> :FZF<cr>
 
 " jedi-vim plugin settings
 let g:jedi#use_tabs_not_buffers = 1  " allow use tabs for goto jumps
+autocmd FileType python setlocal completeopt-=preview
 
 " No compatible with vi
 "set nocompatible
@@ -116,7 +124,13 @@ set showmatch
 set mat=2
 
 set wildmenu
+set wildmode=longest:full
+
+" Show current mode
 set showmode
+
+" Show current typed command
+set showcmd
 
 " Set to auto read when a file is changed from the outside
 set autoread
@@ -129,7 +143,8 @@ set tm=500
 
 syntax on " highlight syntax
 "colorscheme darkblue
-colorscheme desert
+"colorscheme desert
+colorscheme apprentice
 
 "filetype on
 filetype plugin on
@@ -174,7 +189,7 @@ set scrolloff=5
 set foldenable " включить фолдинг
 "set foldmethod=syntax " определять блоки на основе синтаксиса файла
 set foldmethod=indent " определять блоки на основе отступов
-set foldcolumn=3 " показать полосу для управления сворачиванием
+"set foldcolumn=3 " показать полосу для управления сворачиванием
 set foldlevel=1 " Первый уровень вложенности открыт, остальные закрыты
 "set foldopen=all " автоматическое открытие сверток при заходе в них
 
@@ -214,17 +229,6 @@ command! W :execute ':silent w !sudo tee % > /dev/null' | :edit!
 
 " Wq is ok
 command! Wq wq
-
-" Map Alt+<number> to switch between tabs
-"nmap 1 1gt
-"nmap 2 2gt
-"nmap 3 3gt
-"nmap 4 4gt
-"nmap 5 5gt
-"nmap 6 6gt
-"nmap 7 7gt
-"nmap 8 8gt
-"nmap 9 9gt
 
 " Show EOL chars
 set list
