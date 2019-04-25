@@ -29,7 +29,7 @@ Plugin 'davidhalter/jedi-vim'
 Plugin 'ervandew/supertab'
 " Easy comment with gC
 Plugin 'tomtom/tcomment_vim'
-Plugin 'romainl/Apprentice'
+Plugin 'NLKNguyen/papercolor-theme'
 nmap ,v :VaultEncryptionToggle<CR>
 
 call vundle#end()            " required
@@ -94,8 +94,8 @@ set smartindent " si - Smart indent - insert one more indent in some cases
 
 set encoding=utf-8
 
-" Always show status line
-set laststatus=2
+" Status line settings
+set laststatus=0                             " Disable by default
 set statusline=
 set statusline+=%-3.3n\                      " buffer number
 set statusline+=%f\                          " filename
@@ -142,9 +142,22 @@ set t_vb=
 set tm=500
 
 syntax on " highlight syntax
-"colorscheme darkblue
 "colorscheme desert
-colorscheme apprentice
+" PaperColor theme settings
+set background=dark
+let g:PaperColor_Theme_Options = {
+  \   'theme': {
+  \     'default.dark': {
+  \       'transparent_background': 1,
+  \       'allow_bold': 1,
+  \     },
+  \     'default.light': {
+  \       'transparent_background': 1,
+  \       'allow_bold': 1,
+  \     }
+  \   }
+  \ }
+colorscheme PaperColor
 
 "filetype on
 filetype plugin on
