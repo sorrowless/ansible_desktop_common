@@ -252,3 +252,7 @@ highlight NonText ctermfg=236
 
 " Indent on bounds of tabstops
 set shiftround
+
+" Use non-default diff algorithms
+set diffopt+=algorithm:patience
+set diffopt+=indent-heuristic
