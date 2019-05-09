@@ -24,19 +24,25 @@ function gitbranch {
 
 # SSH-related funcs
 check-ssh-agent() {
-  if [ ! -S ~/.ssh/ssh_auth_sock ]; then
+  if ! pgrep -u "$USER" ssh-agent > /dev/null; then
     echo "ssh-agent not running, run it"
-    eval `ssh-agent`
-    ln -sf "$SSH_AUTH_SOCK" ~/.ssh/ssh_auth_sock
-    echo "ran ssh-agent"
+    ssh-agent > ~/.ssh/ssh_agent_last_data
+    echo "Successfully ran ssh-agent"
+  fi
+  if [[ ! "$SSH_AUTH_SOCK" ]]; then
+    eval "$(<~/.ssh/ssh_agent_last_data)"
+    echo "ssh-agent data exported to ENV variables"
   fi
 }
 
 check-ssh-add() {
-  export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
+  if [[ ! "$SSH_AUTH_SOCK" ]]; then
+    eval "$(<~/.ssh/ssh_agent_last_data)"
+    echo "ssh-agent data exported to ENV variables"
+  fi
   if ! ssh-add -l >/dev/null; then
     ssh-add -t 8h
-    echo "Keys were added to an agent"
+    echo "Keys were added to an agent for 8 hours"
   fi
 }
 
@@ -62,4 +68,12 @@ ssh() {
   tmux rename-window "ssh:$SSH_HOST"
   /usr/bin/ssh $@
   tmux rename-window $W_NAME
+}
+
+git() {
+  if [[ $1 =~ (clone|remote|ru) ]]; then
+    check-ssh-agent
+    check-ssh-add
+  fi
+  /usr/bin/git $@
 }
