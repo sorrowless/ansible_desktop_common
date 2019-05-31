@@ -30,6 +30,7 @@ Plugin 'ervandew/supertab'
 " Easy comment with gC
 Plugin 'tomtom/tcomment_vim'
 Plugin 'NLKNguyen/papercolor-theme'
+Plugin 'aserebryakov/vim-todo-lists'
 nmap ,v :VaultEncryptionToggle<CR>
 
 call vundle#end()            " required
