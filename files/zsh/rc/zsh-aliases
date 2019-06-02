@@ -28,7 +28,7 @@ alias clip='fc -e - 2>/dev/null | xsel -i -b'
 alias speedtest="curl -s -w 'Testing Website Response Time for: %{url_effective}\n\nLookup Time:\t\t%{time_namelookup}\nConnect Time:\t\t%{time_connect}\nPre-transfer Time:\t%{time_pretransfer}\nStart-transfer Time:\t%{time_starttransfer}\n\nTotal Time:\t\t%{time_total}\n' -o /dev/null"
 alias gri='f() { grep -ri $1 ./ };f'
 alias host_location='f() { curl https://ipvigilante.com/$1 2>/dev/null | jq -c "[ .data.ipv4, .data.continent_name, .data.country_name, if .data.city_name then .data.city_name else \"Unknown City\" end ]" };f'
-alias shost_location='f() { shost $1 | jq -r ".[].hostname" | xargs -I {} curl https://ipvigilante.com/{} 2>/dev/null | jq -c "[ .data.ipv4, .data.continent_name, .data.country_name, if .data.city_name then .data.city_name else \"Unknown City\" end ]" };f'
+alias shost_location='f() { shost -j $1 | jq -r ".[].hostname" | xargs -I {} curl https://ipvigilante.com/{} 2>/dev/null | jq -c "[ .data.ipv4, .data.continent_name, .data.country_name, if .data.city_name then .data.city_name else \"Unknown City\" end ]" };f'
 
 # Git aliases
 alias gst='git status'
