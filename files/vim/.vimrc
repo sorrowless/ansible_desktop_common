@@ -59,6 +59,7 @@ let g:syntastic_check_on_open = 0
 let g:syntastic_check_on_wq = 0
 let g:syntastic_python_checkers = ['flake8']
 
+
 " fzf plugin settings
 map <C-p> :FZF<cr>
 
@@ -237,6 +238,9 @@ nmap <leader>q :q!<cr>
 
 " Toggle paste mode on and off
 map <leader>pp :setlocal paste!<cr>
+
+" Syntasic warnings hide
+nmap <leader>l :lclose<cr>
 
 " set W to be 'sudo w'
 command! W :execute ':silent w !sudo tee % > /dev/null' | :edit!
