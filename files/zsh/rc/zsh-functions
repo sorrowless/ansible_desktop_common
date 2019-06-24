@@ -25,20 +25,30 @@ function gitbranch {
 # SSH-related funcs
 check-ssh-agent() {
   if ! pgrep -u "$USER" ssh-agent > /dev/null; then
-    echo "ssh-agent not running, run it"
-    ssh-agent > ~/.ssh/ssh_agent_last_data
-    echo "Successfully ran ssh-agent"
+    echo "ssh-agent not running, prepare to run it"
+    echo "creating data directory"
+    SSH_INFO_DIR="/tmp/$USER/.ssh_data"
+    mkdir -p $SSH_INFO_DIR
+    chmod 700 $SSH_INFO_DIR
+    echo "run ssh-agent"
+    ssh-agent > $SSH_INFO_DIR/ssh_agent_last_data
+    chmod 600 $SSH_INFO_DIR/ssh_agent_last_data
+    echo "successfully ran ssh-agent"
   fi
   if [[ ! "$SSH_AUTH_SOCK" ]]; then
-    eval "$(<~/.ssh/ssh_agent_last_data)"
-    echo "ssh-agent data exported to ENV variables"
+    SSH_INFO_DIR="/tmp/$USER/.ssh_data"
+    echo "ssh auth sock info found"
+    eval "$(<$SSH_INFO_DIR/ssh_agent_last_data)"
+    echo "ssh-agent sock info exported to ENV variables"
   fi
 }
 
 check-ssh-add() {
   if [[ ! "$SSH_AUTH_SOCK" ]]; then
-    eval "$(<~/.ssh/ssh_agent_last_data)"
-    echo "ssh-agent data exported to ENV variables"
+    SSH_INFO_DIR="/tmp/$USER/.ssh_data"
+    echo "ssh auth sock info found"
+    eval "$(<$SSH_INFO_DIR/ssh_agent_last_data)"
+    echo "ssh-agent sock info exported to ENV variables"
   fi
   if ! ssh-add -l >/dev/null; then
     ssh-add -t 8h
@@ -71,7 +81,7 @@ ssh() {
 }
 
 git() {
-  if [[ $1 =~ (clone|remote|ru) ]]; then
+  if [[ $1 =~ (clone|remote|ru|remote) ]]; then
     check-ssh-agent
     check-ssh-add
   fi
