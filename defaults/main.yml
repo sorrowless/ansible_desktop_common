@@ -15,3 +15,5 @@ backups_encryption_key: ""
 login_theme: clairvoyance
 login_cursor_theme: "ComixCursors-White"
 
+# Zsh vars
+zsh_enabled: true

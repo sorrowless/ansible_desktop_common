@@ -1,0 +1,28 @@
+---
+- name: Konsole | Ensure konsole package
+  package:
+    name: konsole
+    state: latest
+
+- name: Konsole | Ensure needed directories for themes
+  become: yes
+  become_user: "{{ username }}"
+  file:
+    state: directory
+    path: ~/.local/share/konsole
+
+- name: Konsole | Copy PaperColor konsole themes
+  become: yes
+  become_user: "{{ username }}"
+  copy:
+    src: "{{ item }}"
+    dest: ~/.local/share/konsole/
+  with_items:
+    - x11/konsole/PaperColorDark.colorscheme
+    - x11/konsole/PaperColorLight.colorscheme
+
+- name: Konsole | Ensure zsh extensions for switch colorscheme
+  copy:
+    src: x11/konsole/konsole.zsh
+    dest: ~/.rc/konsole
+  when: zsh_enabled

@@ -11,9 +11,16 @@
 - import_tasks: sysctl.yml
 - import_tasks: tmux.yml
 - import_tasks: vim.yml
+
 - import_tasks: zsh.yml
+  when: zsh_enabled
   tags: 'zsh'
+
 - import_tasks: media.yml
   tags: 'media'
 - import_tasks: tools.yml
   tags: 'tools'
+
+# X11-related tasks
+- import_tasks: x11/konsole.yml
+  tags: ['x11', 'terminal', 'konsole']

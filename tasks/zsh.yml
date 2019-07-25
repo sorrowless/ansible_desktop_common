@@ -13,6 +13,13 @@
   become: yes
   become_user: root
 
+- name: Ensure zsh rc directory
+  become: yes
+  become_user: "{{ username }}"
+  file:
+    state: directory
+    path: ~/.rc
+
 - name: Copy .zshrc to user profile
   copy: src=zsh/.zshrc dest=~/.zshrc
 
