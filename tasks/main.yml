@@ -18,6 +18,7 @@
   tags: 'media'
 - import_tasks: tools.yml
   tags: 'tools'
+- import_tasks: packages.yml
 
 # X11-related tasks
 - import_tasks: x11/konsole.yml
