@@ -6,8 +6,6 @@
 - import_tasks: git.yml
 - import_tasks: rofi.yml
 - import_tasks: screen.yml
-- import_tasks: sddm.yml
-  tags: 'sddm'
 - import_tasks: sysctl.yml
 - import_tasks: tmux.yml
 - import_tasks: vim.yml
@@ -24,3 +22,5 @@
 # X11-related tasks
 - import_tasks: x11/konsole.yml
   tags: ['x11', 'terminal', 'konsole']
+- import_tasks: x11/sddm.yml
+  tags: ['x11', 'sddm']
