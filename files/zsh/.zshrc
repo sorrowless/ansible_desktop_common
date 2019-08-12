@@ -56,7 +56,7 @@ fi
 # it MUST be in singlequotes. Otherwise, promptsubst will not be working
 # $(who_am_i) %{$fg[white]%}in%{$reset_color%} %{$fg_no_bold[cyan]%}%3~%{$reset_color%} $(gitbranch)
 PROMPT='
-%{$fg_no_bold[cyan]%}%3~%{$reset_color%} $(gitbranch)
+%{$fg_no_bold[cyan]%}%3~%{$reset_color%} $(gitbranch) $(pyvenv)
 $(red_green) '
 
 del-prompt-on-enter() {
@@ -64,7 +64,7 @@ del-prompt-on-enter() {
 $(red_green) '
   zle reset-prompt
   PROMPT='
-%{$fg_no_bold[cyan]%}%3~%{$reset_color%} $(gitbranch)
+%{$fg_no_bold[cyan]%}%3~%{$reset_color%} $(gitbranch) $(pyvenv)
 $(red_green) '
   zle accept-line
 }

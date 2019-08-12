@@ -22,6 +22,13 @@ function gitbranch {
     [ $ret ] && echo "%{$reset_color%}[%{$fg[red]%}$ret%{$reset_color%}]"
 }
 
+function pyvenv {
+    # find current git branch
+    local ret="$(echo $PYENV_VERSION)"
+    # and test that it is not null. If not null - then print it.
+    [ $PYENV_VERSION ] && echo "%{$reset_color%}[%{$fg[blue]%}$PYENV_VERSION%{$reset_color%}]"
+}
+
 # SSH-related funcs
 check-ssh-agent() {
   if ! pgrep -u "$USER" ssh-agent > /dev/null; then

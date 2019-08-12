@@ -12,8 +12,8 @@ alias du='du -hc'
 alias df='df -h'
 alias svim='sudo vim'
 alias scat='openssl x509 -text -noout -in'
-alias sctl='systemctl'
-alias sclu='systemctl list-units'
+alias s='systemctl'
+alias sl='systemctl list-units'
 alias ipsave='sudo iptables-save'
 if command -v colordiff > /dev/null 2>&1; then
     alias diff="colordiff -Nar"
