@@ -1,6 +1,6 @@
 # Konsole color changing
 # Source: https://askubuntu.com/questions/416572/switch-profile-in-konsole-from-command-line
-
+#
 konsole-theme-night() {
   switch-term-color "colors=PaperColorDark"
 }
@@ -16,5 +16,14 @@ switch-term-color() {
     konsoleprofile "$arg"
   else
     printf '\033Ptmux;\033\033]50;%s\007\033\\' "$arg"
+  fi
+}
+
+switch-term-based-on-time() {
+  HOUR=`date +%H`
+  if [[ $HOUR -ge 18 ]] || [[ $HOUR -le 7 ]]; then
+    konsole-theme-night
+  else
+    konsole-theme-light
   fi
 }

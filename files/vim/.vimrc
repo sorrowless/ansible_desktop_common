@@ -146,7 +146,12 @@ set tm=500
 syntax on " highlight syntax
 "colorscheme desert
 " PaperColor theme settings
-set background=dark
+let backtime = system('date +%H')
+if backtime > 17 || backtime < 8
+  set background=dark
+else
+  set background=light
+endif
 let g:PaperColor_Theme_Options = {
   \   'theme': {
   \     'default.dark': {

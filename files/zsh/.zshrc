@@ -80,3 +80,5 @@ function zle-line-init zle-keymap-select {
 for FILE in ~/.rc/* ; do
   source $FILE
 done
+
+switch-term-based-on-time
