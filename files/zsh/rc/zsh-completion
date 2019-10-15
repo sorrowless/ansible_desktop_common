@@ -3,7 +3,7 @@ compinit
 
 zmodload -i zsh/complist
 setopt hash_list_all            # hash everything before completion
-setopt completealiases          # complete alisases
+#setopt completealiases          # complete alisases
 setopt always_to_end            # when completing from the middle of a word, move the cursor to the end of the word
 setopt complete_in_word         # allow completion from within a word/phrase
 setopt correct                  # spelling correction for commands
@@ -30,6 +30,7 @@ zstyle ':completion:*:*:killall:*' menu yes select
 zstyle ':completion:*:killall:*' force-list always
 users=(sbog root)           # because I don't care about others
 zstyle ':completion:*' users $users
+zstyle ':completion:*:*:ansible:*' file-patterns '*.yml:all-files'
 
 setopt auto_pushd               # make cd push old dir in dir stack
 setopt pushd_ignore_dups        # no duplicates in dir stack
@@ -38,8 +39,4 @@ setopt pushd_to_home            # `pushd` = `pushd $HOME`
 # Actually, I hate default zsh autoselect, so - no select
 #zstyle ':completion:::*:default' menu no select
 
-#zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
-#zstyle ':completion:*' completer _expand _complete _ignored _approximate
 #zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
-#zstyle ':completion::complete:*' use-cache 1
-#zstyle ':completion:*:descriptions' format '%U%F{cyan}%d%f%u'
