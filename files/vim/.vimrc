@@ -31,6 +31,7 @@ Plugin 'ervandew/supertab'
 Plugin 'tomtom/tcomment_vim'
 Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'aserebryakov/vim-todo-lists'
+Plugin 'MicahElliott/Rocannon'
 nmap ,v :VaultEncryptionToggle<CR>
 
 call vundle#end()            " required
@@ -40,6 +41,18 @@ filetype plugin indent on    " required
 let g:indentLine_char = '▏'
 let g:indentLine_setConceal = 0
 let g:indentLine_concealcursor = 'c'
+
+" Status line settings
+set laststatus=2                             " Disable by default
+set statusline=
+set statusline+=%-3.3n\                      " buffer number
+set statusline+=%f\                          " filename
+set statusline+=%h%m%r%w                     " status flags
+set statusline+=\[%{strlen(&ft)?&ft:'none'}] " file type
+set statusline+=%=                           " right align remainder
+set statusline+=0x%-8B                       " character value
+set statusline+=%-14(%l,%c%V%)               " line, character
+set statusline+=%<%P
 
 " NerdTree plugin settings
 map <C-n> :NERDTreeToggle<CR>
@@ -54,10 +67,12 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 0
+let g:syntastic_auto_loc_list = 0
+let g:syntastic_loc_list_height = 3
+let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 let g:syntastic_python_checkers = ['flake8']
+let g:syntastic_auto_jump = 2
 
 
 " fzf plugin settings
@@ -95,18 +110,6 @@ set autoindent " ai - Auto indent - copy indentation from previous line
 set smartindent " si - Smart indent - insert one more indent in some cases
 
 set encoding=utf-8
-
-" Status line settings
-set laststatus=0                             " Disable by default
-set statusline=
-set statusline+=%-3.3n\                      " buffer number
-set statusline+=%f\                          " filename
-set statusline+=%h%m%r%w                     " status flags
-set statusline+=\[%{strlen(&ft)?&ft:'none'}] " file type
-set statusline+=%=                           " right align remainder
-set statusline+=0x%-8B                       " character value
-set statusline+=%-14(%l,%c%V%)               " line, character
-set statusline+=%<%P
 
 set ruler
 
@@ -164,7 +167,6 @@ let g:PaperColor_Theme_Options = {
   \     }
   \   }
   \ }
-colorscheme PaperColor
 
 "filetype on
 filetype plugin on
@@ -266,3 +268,8 @@ set shiftround
 " Use non-default diff algorithms
 set diffopt+=algorithm:patience
 set diffopt+=indent-heuristic
+
+" Disable Rocannon Ansible color scheme
+let g:rocannon_bypass_colorscheme = 1
+
+colorscheme PaperColor
