@@ -273,3 +273,9 @@ set diffopt+=indent-heuristic
 let g:rocannon_bypass_colorscheme = 1
 
 colorscheme PaperColor
+
+" tabs-related hotkeys
+nnoremap <C-h> :tabprevious<CR>
+nnoremap <C-l> :tabnext<CR>
+nnoremap <silent> <Esc>h :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
+nnoremap <silent> <Esc>l :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
