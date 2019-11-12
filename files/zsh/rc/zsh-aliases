@@ -16,6 +16,9 @@ alias s='systemctl'
 alias sl='systemctl list-units'
 alias ipsave='sudo iptables-save'
 alias iptables-flush="sudo bash -lc 'iptables -F && iptables -X && iptables -t nat -F && iptables -t nat -X && iptables -t mangle -F && iptables -t mangle -X && iptables -t raw -F && iptables -t raw -X && iptables -t security -F && iptables -t security -X && iptables -P INPUT ACCEPT && iptables -P FORWARD ACCEPT && iptables -P OUTPUT ACCEPT'"
+alias c='gcalcli'
+alias ce='gcalcli agenda'
+alias clouds='yq r ~/.config/openstack/clouds.yaml -j | jq '\''.clouds|keys[] as $k | "\($k): \(.[$k] | .auth.auth_url )"'\'' | sort'
 if command -v colordiff > /dev/null 2>&1; then
     alias diff="colordiff -Nar"
     alias diffy="colordiff -Nar -y --suppress-common-lines"
@@ -80,3 +83,15 @@ alias less='less -S'
 # you know, that's funny ;)
 alias fuck='sudo $(fc -ln -1)'
 alias wttr='curl http://wttr.in/'
+
+getpass() {
+  LEN="$1"
+  NUM="$2"
+  if [[ -z "$1" ]]; then
+    LEN=32
+  fi
+  if [[ -z "$2" ]]; then
+    NUM=1
+  fi
+  pwgen -r"\"'{}" -y -s "$LEN" "$NUM"
+}
