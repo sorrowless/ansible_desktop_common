@@ -39,6 +39,7 @@ if [ -f "${ZGEN_FILE}" ] && [ "$RC" -eq 0 ]; then
     zgen load marzocchi/zsh-notify
     zgen load zsh-users/zsh-syntax-highlighting
     zgen load supercrabtree/k
+    zgen load sorrowless/zsh-completions
     # Generate the init script from plugins above
     zgen save
   fi
