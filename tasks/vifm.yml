@@ -1,0 +1,55 @@
+---
+- name: Install vifm
+  package:
+    name: vifm
+    state: latest
+
+- name: Install ueberzug
+  become: yes
+  become_user: "{{ username }}"
+  aur:
+    name: python-ueberzug
+
+- name: Ensure vifm config directory
+  become: yes
+  become_user: "{{ username }}"
+  file:
+    state: directory
+    path: "~/.config/vifm"
+    mode: 0750
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Copy vifm config to user home directory
+  become: yes
+  become_user: "{{ username }}"
+  copy:
+    src: vifm/vifmrc
+    dest: ~/.config/vifm/vifmrc
+    mode: 0644
+    owner: "{{ username }}"
+    group: "{{ username }}"
+
+- name: Ensure vifmimg script to work with ueberzug
+  copy:
+    src: "vifm/{{ item }}"
+    dest: "/usr/local/bin/{{ item }}"
+    mode: 0755
+    owner: root
+    group: root
+  with_items:
+    - vifmimg
+    - vifm-ueberzug
+  become: yes
+  become_user: root
+
+- name: Ensure vifm zsh extensions for run with ueberzug
+  become: yes
+  become_user: "{{ username }}"
+  copy:
+    src: vifm/vifm.zsh
+    dest: ~/.rc/vifm
+    mode: 0644
+    owner: "{{ username }}"
+    group: "{{ username }}"
+  when: zsh_enabled
