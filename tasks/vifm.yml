@@ -23,7 +23,7 @@
 - name: Copy vifm config to user home directory
   become: yes
   become_user: "{{ username }}"
-  copy:
+  template:
     src: vifm/vifmrc
     dest: ~/.config/vifm/vifmrc
     mode: 0644
@@ -53,3 +53,33 @@
     owner: "{{ username }}"
     group: "{{ username }}"
   when: zsh_enabled
+
+- name: Ensure vifm devicons
+  become: yes
+  become_user: "{{ username }}"
+  git:
+    repo: 'https://github.com/sorrowless/vifm_devicons.git'
+    dest: "~/.config/vifm/vifm_devicons"
+    depth: 1
+
+- name: Ensure local fonts directory
+  become: yes
+  become_user: "{{ username }}"
+  file:
+    state: directory
+    path: "~/.local/share/fonts"
+    mode: 0750
+    owner: "{{ username }}"
+
+
+- name: Get Bitstream Vera Mono Hack font for vifm
+  become: yes
+  become_user: "{{ username }}"
+  get_url:
+    url: 'https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/BitstreamVeraSansMono/Regular/complete/Bitstream%20Vera%20Sans%20Mono%20Nerd%20Font%20Complete%20Mono.ttf'
+    dest: "~/.local/share/fonts/Bitstream Vera Sans Mono Nerd Font Complete Mono.ttf"
+  register: font
+
+- name: Update cache
+  command: fc-cache
+  when: font.changed
