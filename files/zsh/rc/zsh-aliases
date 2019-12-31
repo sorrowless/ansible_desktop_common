@@ -83,6 +83,7 @@ alias less='less -S'
 # you know, that's funny ;)
 alias fuck='sudo $(fc -ln -1)'
 alias wttr='curl http://wttr.in/'
+alias ac='asciinema'
 
 getpass() {
   LEN="$1"
@@ -93,5 +94,5 @@ getpass() {
   if [[ -z "$2" ]]; then
     NUM=1
   fi
-  pwgen -r"\"'{}" -y -s "$LEN" "$NUM"
+  pwgen -r"\"'!@#$%&*()<>/|{}[]\\\`:;=,~" -y -s "$LEN" "$NUM"
 }
