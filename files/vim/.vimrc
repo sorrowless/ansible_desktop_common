@@ -33,7 +33,14 @@ Plugin 'NLKNguyen/papercolor-theme'
 Plugin 'aserebryakov/vim-todo-lists'
 Plugin 'MicahElliott/Rocannon'
 Plugin 'dhruvasagar/vim-zoom'
+" To allow to make directory diffs
+Plugin 'will133/vim-dirdiff'
+" Highlight yank
+Plugin 'machakann/vim-highlightedyank'
 nmap ,v :VaultEncryptionToggle<CR>
+
+" Highlight duration
+let g:highlightedyank_highlight_duration = 1000
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -63,6 +70,15 @@ map <C-n> :NERDTreeToggle<CR>
 let g:NERDTreeFileExtensionHighlightFullName = 1
 let g:NERDTreeExactMatchHighlightFullName = 1
 let g:NERDTreePatternMatchHighlightFullName = 1
+
+" Let user netrw from time to time
+" Look at https://shapeshed.com/vim-netrw/ to see useful settings
+map <C-o> :Vexplore<CR>
+let g:netrw_liststyle = 3
+let g:netrw_banner = 0
+let g:netrw_browse_split = 3
+let g:netrw_winsize = 20
+let g:netrw_altv = 1
 
 " syntastic plugin settings
 set statusline+=%#warningmsg#
@@ -151,12 +167,13 @@ set tm=500
 syntax on " highlight syntax
 "colorscheme desert
 " PaperColor theme settings
-let backtime = system('date +%H')
-if backtime > 17 || backtime < 8
-  set background=dark
-else
-  set background=light
-endif
+" let backtime = system('date +%H')
+" if backtime > 17 || backtime < 8
+"   set background=dark
+" else
+"   set background=light
+" endif
+set background=dark
 let g:PaperColor_Theme_Options = {
   \   'theme': {
   \     'default.dark': {
@@ -277,7 +294,13 @@ let g:rocannon_bypass_colorscheme = 1
 colorscheme PaperColor
 
 " tabs-related hotkeys
-nnoremap <C-h> :tabprevious<CR>
-nnoremap <C-l> :tabnext<CR>
+noremap <C-h> :tabprevious<CR>
+noremap <C-l> :tabnext<CR>
+inoremap <C-h> <Esc>:tabprevious<CR>
+inoremap <C-l> <Esc>:tabnext<CR>
 nnoremap <silent> <Esc>h :execute 'silent! tabmove ' . (tabpagenr()-2)<CR>
 nnoremap <silent> <Esc>l :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
+
+" map space to fold
+nnoremap <space> za
+vnoremap <space> zf

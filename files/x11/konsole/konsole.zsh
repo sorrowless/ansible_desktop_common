@@ -19,11 +19,13 @@ switch-term-color() {
   fi
 }
 
-switch-term-based-on-time() {
-  HOUR=`date +%H`
-  if [[ $HOUR -ge 18 ]] || [[ $HOUR -le 7 ]]; then
-    konsole-theme-night
-  else
-    konsole-theme-light
-  fi
-}
+konsole-theme-night
+# Let's use only night theme :)
+#switch-term-based-on-time() {
+#  HOUR=`date +%H`
+#  if [[ $HOUR -ge 18 ]] || [[ $HOUR -le 7 ]]; then
+#    konsole-theme-night
+#  else
+#    konsole-theme-light
+#  fi
+#}

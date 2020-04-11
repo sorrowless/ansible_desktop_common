@@ -3,7 +3,7 @@ autoload zkbd
 if [[ ! -f ~/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE} ]]; then
   echo "Your zkbd is not configured. We need it to properly bind keyboard \
         keys, so just run 'zkbd' from command line"
-  # zkbd
+  zkbd
 else
   source ~/.zkbd/$TERM-${${DISPLAY:t}:-$VENDOR-$OSTYPE}
   #setup key accordingly

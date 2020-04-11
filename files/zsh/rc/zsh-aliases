@@ -84,6 +84,7 @@ alias less='less -S'
 alias fuck='sudo $(fc -ln -1)'
 alias wttr='curl http://wttr.in/'
 alias ac='asciinema'
+alias fk='fkill'
 
 getpass() {
   LEN="$1"
