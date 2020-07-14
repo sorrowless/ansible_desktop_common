@@ -4,57 +4,9 @@
   become: yes
   become_user: "{{ username }}"
 
-- name: Install 'v' utility for fast vim recent files open
-  become: yes
-  become_user: root
-  git:
-    repo: https://github.com/rupa/v.git
-    dest: /opt/v
-
-- name: Place a symlink of 'v' to PATH
-  become: yes
-  become_user: root
-  file:
-    src: /opt/v/v
-    dest: /usr/local/bin/v
-    state: link
-
-- name: Install 'tldr' utility as a short version of 'man'
-  become: yes
-  become_user: root
-  git:
-    repo: https://github.com/pepa65/tldr-bash-client.git
-    dest: /opt/tldr-bash-client
-
-- name: Place a symlink of tldr to PATH
-  become: yes
-  become_user: root
-  file:
-    src: /opt/tldr-bash-client/tldr
-    dest: /usr/local/bin/tldr
-    state: link
-
-- name: Install 'cheat' utility - one more short 'man'
-  pip:
-    name: cheat
-
-- name: Install ncdu utility to easier view dir sizes
-  become: yes
-  become_user: root
-  package:
-    name: ncdu
-    state: latest
-
-- name: Install ranger file manager
-  become: yes
-  become_user: root
-  package:
-    name: ranger
-    state: latest
-
 - name: Install parallel utility to run shell tasks in parallel
   become: yes
-  become_user: root
+  become_user: "{% if ansible_facts.os_family != 'Darwin' %}root{% else %}{{ username }}{% endif %}"
   package:
     name: parallel
     state: latest
@@ -65,21 +17,15 @@
     dest: "~/.ssh/config"
   become: yes
   become_user: "{{ username }}"
+  tags:
+    - sshconfig
 
 - name: Install taskwarrior to be a task manager
   become: yes
-  become_user: root
+  become_user: "{% if ansible_facts.os_family != 'Darwin' %}root{% else %}{{ username }}{% endif %}"
   package:
     name: task
     state: latest
-
-- name: Install paclog to be able to look at commit messages of updates
-  become: yes
-  become_user: root
-  copy:
-    src: dotcommon/paclog
-    dest: /usr/bin/paclog
-    mode: u=rwx,g=rx,o=rx
 
 - name: Install acpi to be able to show battery in console
   become: yes
@@ -87,15 +33,19 @@
   package:
     name: acpi
     state: latest
+  when:
+    - ansible_facts.os_family != 'Darwin'
 
 - name: Install FZF to have fuzzy search in console with preview
   become: yes
-  become_user: root
+  become_user: "{% if ansible_facts.os_family != 'Darwin' %}root{% else %}{{ username }}{% endif %}"
   package:
     name: fzf
     state: latest
 
-- include: sysctl.yml
+- import_tasks: sysctl.yml
+  when:
+    - ansible_facts.os_family != 'Darwin'
 
 - name: Install battshow to be able to view battery status in console
   become: yes
@@ -104,6 +54,8 @@
     src: dotcommon/battshow
     dest: /usr/bin/battshow
     mode: u=rwx,g=rx,o=rx
+  when:
+    - ansible_facts.os_family != 'Darwin'
 
 - name: Install 'shost' utility for fast search in SSH config
   become: yes
@@ -121,4 +73,6 @@
     state: link
 
 - name: Include pscircle tasks
-  include_tasks: pscircle.yml
+  import_tasks: pscircle.yml
+  when:
+    - ansible_facts.os_family != 'Darwin'

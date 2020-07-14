@@ -15,6 +15,6 @@
     content: 'alias pm="pulsemixer"'
     dest: "~/.rc/pulsemixer"
 
-- name: Media | Install imgp
-  aur:
-    name: imgp
+    #- name: Media | Install imgp
+    #  aur:
+    #    name: imgp

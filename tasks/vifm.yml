@@ -4,11 +4,11 @@
     name: vifm
     state: latest
 
-- name: Install ueberzug
-  become: yes
-  become_user: "{{ username }}"
-  aur:
-    name: python-ueberzug
+    #- name: Install ueberzug
+    #  become: yes
+    #  become_user: "{{ username }}"
+    #  aur:
+    #    name: python-ueberzug
 
 - name: Ensure vifm config directory
   become: yes

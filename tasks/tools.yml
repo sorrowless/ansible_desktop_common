@@ -30,6 +30,6 @@
       export KP_PASSWORD_FILE=/tmp/kpp
     dest: "~/.rc/keefind"
 
-- name: Tools | Install peco
-  aur:
-    name: peco
+    #- name: Tools | Install peco
+    #  aur:
+    #    name: peco
