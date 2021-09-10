@@ -1,10 +1,10 @@
 # VirtualenvWrapper
-export WORKON_HOME=~/.virtualenvs
-if [ -f /usr/bin/virtualenvwrapper.sh ]; then
-  source /usr/bin/virtualenvwrapper.sh
-else
-  echo "virtualenvwrapper script for Python not found, skip load it"
-fi
+#export WORKON_HOME=~/.virtualenvs
+#if [ -f /usr/bin/virtualenvwrapper.sh ]; then
+#  source /usr/bin/virtualenvwrapper.sh
+#else
+#  echo "virtualenvwrapper script for Python not found, skip load it"
+#fi
 #unset GREP_OPTIONS
 
 # use 'up' script instead of typing cd ../../../.. endlessly
@@ -30,14 +30,15 @@ export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 
 if command -v pyenv 1>/dev/null 2>&1; then
-  eval "$(pyenv init -)"
-  eval "$(pyenv virtualenv-init -)"
-  export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+  #eval "$(pyenv init -)"
+  #eval "$(pyenv virtualenv-init -)"
+  #export PYENV_VIRTUALENV_DISABLE_PROMPT=1
   alias p='pyenv'
   alias pver='pyenv versions'
   alias pven='pyenv virtualenvs'
   alias pact='pyenv activate'
   alias pdeact='pyenv deactivate'
+  alias peval='eval "$(pyenv init -)"; eval "$(pyenv virtualenv-init -)"'
 fi
 
 # Rbenv activation
@@ -88,3 +89,5 @@ if (( $+commands[peco] )); then
   zle -N peco_select_history
   bindkey '^R' peco_select_history
 fi
+
+export GPG_TTY=$(tty)

@@ -42,6 +42,17 @@ alias grv='git remote -v'
 # Translation aliases
 alias enru='trans en:ru -b'
 alias ruen='trans ru:en -b'
+autotranslate() {
+  local voc='abcdefjhigklmnopqrstuvwxyzABCDEFJHIGKLMNOPQRSTUVWXYZ'
+  local words=$@
+  local word=$1
+  if [[ "$voc" =~ "${word:0:1}" ]]; then
+    trans en:ru "${words}"
+  else
+    trans ru:en "${words}"
+  fi
+}
+alias tran=autotranslate
 
 # Docker aliases
 alias dps='sudo docker ps'
@@ -75,8 +86,10 @@ PLATFORM=`uname`
 if [ "${PLATFORM}" != "Darwin" ]; then
   alias ls='ls --color=auto --human-readable --group-directories-first --classify'
   alias ip='ip -4 -o'
+  alias rl='readlink -f'
 else
-  alias ls='ls -G'
+  alias ls='gls -h --group-directories-first --color=auto'
+  alias rl='greadlink -f'
 fi
 alias feh='feh -x -F -Y'
 alias less='less -S'
@@ -85,6 +98,9 @@ alias fuck='sudo $(fc -ln -1)'
 alias wttr='curl http://wttr.in/'
 alias ac='asciinema'
 alias fk='fkill'
+alias kcal='khal calendar'
+alias cn='khal new --alarms 5m'
+alias vd='vdirsyncer'
 
 getpass() {
   LEN="$1"
@@ -95,5 +111,15 @@ getpass() {
   if [[ -z "$2" ]]; then
     NUM=1
   fi
-  pwgen -r"\"'!@#$%&*()<>/|{}[]\\\`:;=,~" -y -s "$LEN" "$NUM"
+  #pwgen -r"\"'!@#$%&*()<>/|{}[]\\\`:;=,~-_" -y -s "$LEN" "$NUM"
+  pwgen -s "$LEN" "$NUM"
+}
+
+cjs() {
+  HOST="$1"
+  if [[ -z "$HOST" ]]; then
+    echo "Cpecify host as a parameter"
+    return 1
+  fi
+  curl $HOST 2>/dev/null | jq
 }

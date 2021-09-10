@@ -1,0 +1,25 @@
+bs() {
+  if [[ $# != 1 ]]; then
+    echo "Run as 'bs <item-to-search>'"
+    return 1
+  fi
+  bw list items --search $1 | jq ".[] | {name: .name, user: .login.username, pass: .login.password, id: .id}"
+}
+
+
+bsel() {
+  if [[ $# != 2 ]]; then
+    #echo "Run as 'bsel <item-to-select> <value first symbols>'"
+    ITEM="name"
+    TEXT=${1}
+  else
+    ITEM=${1}
+    TEXT=${2}
+  fi
+  jq "select(.${ITEM} | test(\".*${TEXT}.*\"; \"i\"))"
+}
+
+bunlock() {
+  BW_SESSION=$(bw unlock --raw)
+  export BW_SESSION
+}

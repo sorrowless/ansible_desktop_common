@@ -11,7 +11,7 @@ setopt list_ambiguous           # complete as much of a completion until it gets
 
 zstyle ':completion::complete:*' use-cache on               # completion caching, use rehash to clear
 zstyle ':completion:*' matcher-list 'm:{a-zA-Z}={A-Za-z}'   # ignore case
-zstyle ':completion:*' menu no select                        # menu if nb items > 2
+zstyle ':completion:*' menu no select                       # menu if nb items > 2
 zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}       # colorz !
 zstyle ':completion:*::::' completer _expand _complete _ignored _approximate # list of completers to use
 
@@ -30,7 +30,7 @@ zstyle ':completion:*:*:killall:*' menu yes select
 zstyle ':completion:*:killall:*' force-list always
 users=(sbog root)           # because I don't care about others
 zstyle ':completion:*' users $users
-zstyle ':completion:*:*:ansible:*' file-patterns '*.yml:all-files'
+#zstyle ':completion:*:*:ansible:*' file-patterns '*.yml:all-files'
 
 setopt auto_pushd               # make cd push old dir in dir stack
 setopt pushd_ignore_dups        # no duplicates in dir stack

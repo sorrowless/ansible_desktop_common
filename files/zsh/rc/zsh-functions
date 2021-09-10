@@ -44,14 +44,19 @@ ensure-ssh-keys() {
     # In case there is no ssh-agent socket file, it means we can freely kill
     # all ssh-agent instances, run new one and then export its data to such
     # a file
+    if [ "${PLATFORM}" != "Darwin" ]; then
+      CHMOD_CMD='chmod'
+    else
+      CHMOD_CMD='gchmod'
+    fi
     killall ssh-agent
     echo "ssh-agent not running, prepare to run it"
     echo "ensure ssh-agent data directory"
     mkdir -p ${SSH_INFO_DIR}
-    chmod 700 ${SSH_INFO_DIR}
+    $CHMOD_CMD 700 ${SSH_INFO_DIR}
     echo "run ssh-agent"
     ssh-agent > ${SSH_AGENT_FILE}
-    chmod 600 ${SSH_AGENT_FILE}
+    $CHMOD_CMD 600 ${SSH_AGENT_FILE}
     echo "successfully ran ssh-agent"
   fi
 
@@ -118,4 +123,12 @@ git-old() {
     check-ssh-add
   fi
   /usr/bin/git $@
+}
+
+tb() {
+  if [[ $# != 1 ]]; then
+    echo "Run as 'tb <connection-name>'"
+    return 0
+  fi
+  osascript -e "tell application \"/Applications/Tunnelblick.app\"" -e "connect \"$1\"" -e "end tell"
 }
