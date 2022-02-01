@@ -18,3 +18,7 @@ autoload -U colors && colors
 
 # M-b and M-f (backward-word and forward-word) would jump over each word separated by a '/'
 export WORDCHARS='*?[]~=&;!#$%^(){}'
+
+plugins=(
+  fzf
+)

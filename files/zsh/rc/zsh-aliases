@@ -26,18 +26,14 @@ else
     alias diff="diff -Nar"
     alias diffy="diff -Nar -y --suppress-common-lines"
 fi
-alias grep='grep --colour=auto'
+#alias grep='grep --colour=auto'
+alias grep='ack'
 alias egrep='egrep --colour=auto'
 alias clip='fc -e - 2>/dev/null | xsel -i -b'
 alias speedtest="curl -s -w 'Testing Website Response Time for: %{url_effective}\n\nLookup Time:\t\t%{time_namelookup}\nConnect Time:\t\t%{time_connect}\nPre-transfer Time:\t%{time_pretransfer}\nStart-transfer Time:\t%{time_starttransfer}\n\nTotal Time:\t\t%{time_total}\n' -o /dev/null"
 alias gri='f() { grep -ri $1 ./ };f'
 alias host_location='f() { curl https://ipvigilante.com/$1 2>/dev/null | jq -c "[ .data.ipv4, .data.continent_name, .data.country_name, if .data.city_name then .data.city_name else \"Unknown City\" end ]" };f'
 alias shost_location='f() { shost -j $1 | jq -r ".[].hostname" | xargs -I {} curl https://ipvigilante.com/{} 2>/dev/null | jq -c "[ .data.ipv4, .data.continent_name, .data.country_name, if .data.city_name then .data.city_name else \"Unknown City\" end ]" };f'
-
-# Git aliases
-alias gst='git status'
-alias gco='git checkout'
-alias grv='git remote -v'
 
 # Translation aliases
 alias enru='trans en:ru -b'
@@ -122,4 +118,18 @@ cjs() {
     return 1
   fi
   curl $HOST 2>/dev/null | jq
+}
+
+ts() {
+  tmux switch -t $(tmux ls | fzf | cut -d':' -f1)
+}
+
+# fs [FUZZY PATTERN] - Select selected tmux session
+#   - Bypass fuzzy finder if there's only one match (--select-1)
+#   - Exit if there's no match (--exit-0)
+fs() {
+  local session
+  session=$(tmux list-sessions -F "#{session_name}" | \
+    fzf --query="$1" --select-1 --exit-0) &&
+  tmux switch-client -t "$session"
 }

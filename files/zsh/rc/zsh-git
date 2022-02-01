@@ -1,0 +1,44 @@
+# Git aliases
+alias gst='git status'
+alias gco='git checkout'
+alias grv='git remote -v'
+
+function gitbranch {
+    # find current git branch
+    local ret="$(/usr/bin/git rev-parse --abbrev-ref HEAD 2>/dev/null)"
+    # and test that it is not null. If not null - then print it.
+    [ $ret ] && echo "%{$reset_color%}[%{$fg[red]%}$ret%{$reset_color%}]"
+}
+
+git() {
+  ensure-ssh-keys
+  /usr/bin/git $@
+}
+
+gl() {
+  COMMIT_HASH=$(git log \
+    --all \
+    --pretty=format:'%C(auto)%h%d %<|(95,trunc)%s %<|(115,trunc)%Cgreen%cr %Cblue%<|(150,trunc)%ae' | fzf \
+      --height 100% \
+      --preview 'echo {} | cut -d" " -f1 | xargs git show | bat --color=always -p' \
+      --preview-window=up,70% | cut -d" " -f1)
+  if [[ -n ${COMMIT_HASH} ]]; then
+    echo ${COMMIT_HASH} | pbcopy
+    git show ${COMMIT_HASH}
+  fi
+}
+
+fco_preview() {
+  local tags branches target
+  branches=$(
+    git --no-pager branch --all \
+      --format="%(if)%(HEAD)%(then)%(else)%(if:equals=HEAD)%(refname:strip=3)%(then)%(else)%1B[0;34;1mbranch%09%1B[m%(refname:short)%(end)%(end)" \
+    | sed '/^$/d') || return
+  tags=$(
+    git --no-pager tag | awk '{print "\x1b[35;1mtag\x1b[m\t" $1}') || return
+  target=$(
+    (echo "$branches"; echo "$tags") |
+    fzf --no-hscroll --no-multi -n 2 \
+        --ansi --preview="git --no-pager log -150 --pretty=format:%s '..{2}'") || return
+  git checkout $(awk '{print $2}' <<<"$target" )
+}

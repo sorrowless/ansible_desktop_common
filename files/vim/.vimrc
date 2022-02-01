@@ -16,13 +16,12 @@ Plugin 'pbogut/fzf-mru.vim'
 Plugin 'scrooloose/nerdtree'
 Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plugin 'scrooloose/syntastic'
+" Copy to clipboard by pressing cp and paste by presssing cv
 Plugin 'christoomey/vim-system-copy'
 Plugin 'Yggdroot/indentLine'
 Plugin 'tpope/vim-fugitive'
 Plugin 'junegunn/gv.vim'
 Plugin 'roxma/vim-paste-easy'
-" To be able to transcode ansible inline-vault
-Plugin 'rm-you/vim-vault-inline'
 " Python suggestions for function names
 Plugin 'davidhalter/jedi-vim'
 " Tab autocompletion
@@ -37,7 +36,10 @@ Plugin 'dhruvasagar/vim-zoom'
 Plugin 'will133/vim-dirdiff'
 " Highlight yank
 Plugin 'machakann/vim-highlightedyank'
-nmap ,v :VaultEncryptionToggle<CR>
+" Prettify yaml
+Plugin 'prettier/vim-prettier'
+let g:prettier#config#bracket_spacing = 'false'
+let g:prettier#config#print_width = '160'
 
 " Highlight duration
 let g:highlightedyank_highlight_duration = 1000
@@ -70,6 +72,7 @@ map <C-n> :NERDTreeToggle<CR>
 let g:NERDTreeFileExtensionHighlightFullName = 1
 let g:NERDTreeExactMatchHighlightFullName = 1
 let g:NERDTreePatternMatchHighlightFullName = 1
+let g:NERDTreeShowHidden=1
 
 " Let user netrw from time to time
 " Look at https://shapeshed.com/vim-netrw/ to see useful settings
@@ -285,8 +288,8 @@ highlight NonText ctermfg=236
 set shiftround
 
 " Use non-default diff algorithms
-set diffopt+=algorithm:patience
-set diffopt+=indent-heuristic
+" set diffopt+=algorithm:patience
+" set diffopt+=indent-heuristic
 
 " Disable Rocannon Ansible color scheme
 let g:rocannon_bypass_colorscheme = 1
@@ -304,3 +307,7 @@ nnoremap <silent> <Esc>l :execute 'silent! tabmove ' . (tabpagenr()+1)<CR>
 " map space to fold
 nnoremap <space> za
 vnoremap <space> zf
+
+" Exit Vim if NERDTree is the only window left.
+autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
+    \ quit | endif

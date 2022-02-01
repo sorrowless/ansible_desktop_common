@@ -1,6 +1,8 @@
 # Cautiously export 'vim' as an editor - it will immediately break ^R and so on
 # keybindings in some cases.
 export EDITOR="vim"
+export LANG=en_US.UTF-8
+export LC_ALL=${LANG}
 
 # Use zgen (https://github.com/tarjoilija/zgen.git) to manage plugins for zsh.
 # We try to automatically download it if it doesn't exists and also will auto
@@ -36,10 +38,18 @@ if [ -f "${ZGEN_FILE}" ] && [ "$RC" -eq 0 ]; then
   # If the init scipt doesn't exist
   if ! zgen saved; then
     # Plugins list here
+    # Notifications in system ui when command is done
     zgen load marzocchi/zsh-notify
+    # To differ commands from arguments by show them in different colors
     zgen load zsh-users/zsh-syntax-highlighting
-    zgen load supercrabtree/k
+    # Commands completions
     zgen load sorrowless/zsh-completions
+    # Show suggestions in the same line while typing
+    zgen load zsh-users/zsh-autosuggestions
+    zgen oh-my-zsh
+    # Alt+C to fast cd to directories
+    zgen oh-my-zsh plugins/fzf
+    zgen oh-my-zsh plugins/zsh-interactive-cd
     # Generate the init script from plugins above
     zgen save
   fi
@@ -47,11 +57,13 @@ if [ -f "${ZGEN_FILE}" ] && [ "$RC" -eq 0 ]; then
   zstyle ':notify:*' error-title Error
   zstyle ':notify:*' success-title Success
   zstyle ':notify:*' command-complete-timeout 5
+  zstyle ':notify:*' enable-on-ssh yes
   # End settings for zsh-notify plugin
 else
   echo "zgen plugins manager main file ${ZGEN_FILE} doesn't exists, skip plugins initialization"
 fi
 # End zgen plugins manager initialization
+#plugins=(fzf)
 
 # For code of used in prompt functions, look at ~/.rc/zsh-functions file.
 # it MUST be in singlequotes. Otherwise, promptsubst will not be working
@@ -83,3 +95,6 @@ for FILE in ~/.rc/* ; do
 done
 
 #switch-term-based-on-time
+
+# added by travis gem
+[ ! -s /Users/sbog/.travis/travis.sh ] || source /Users/sbog/.travis/travis.sh

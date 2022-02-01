@@ -1,0 +1,4 @@
+alias kf="kf -v"
+alias kfv="kf -vvv"
+export KP_DATABASE=~/Documents/sync/kps
+export KP_PASSWORD_FILE=/tmp/kpp

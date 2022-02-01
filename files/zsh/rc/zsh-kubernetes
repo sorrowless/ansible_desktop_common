@@ -1,0 +1,17 @@
+k() {
+  if [[ "$1 $2" == "describe pod" ]]; then
+    kubectl describe pod $(kubectl get pods --no-headers -o custom-columns=":metadata.name" | fzf)
+  elif [[ "$1 $2" == "set ns" ]]; then
+    kubectl config set-context --current --namespace=$(kubectl get ns --no-headers -o custom-columns=":metadata.name" | fzf)
+  elif [[ "$1" == "logs" ]]; then
+    #kubectl get pods -o=jsonpath='{.items}' | jq '.[].metadata.name' | fzf
+    pod=$(kubectl get pods --no-headers -o custom-columns=":metadata.name" | fzf)
+    container=$(kubectl get pod -o=jsonpath='{.items}' | jq -r ".[] | select(.metadata.name==\"${pod}\") | .spec.containers[].name")
+    if [[ $(echo ${container} | wc -l) -gt 1 ]]; then
+      container=$(echo ${container} | fzf)
+    fi
+    kubectl logs --follow --tail=100 ${pod} ${container}
+  else
+    kubectl $@
+  fi
+}
