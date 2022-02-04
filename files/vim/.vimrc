@@ -36,6 +36,8 @@ Plugin 'dhruvasagar/vim-zoom'
 Plugin 'will133/vim-dirdiff'
 " Highlight yank
 Plugin 'machakann/vim-highlightedyank'
+" EasyMotion
+Plugin 'easymotion/vim-easymotion'
 " Prettify yaml
 Plugin 'prettier/vim-prettier'
 let g:prettier#config#bracket_spacing = 'false'
@@ -43,6 +45,13 @@ let g:prettier#config#print_width = '160'
 
 " Highlight duration
 let g:highlightedyank_highlight_duration = 1000
+
+" EasyMotion config
+map  / <Plug>(easymotion-sn)
+omap / <Plug>(easymotion-tn)
+map  <Leader>w <Plug>(easymotion-bd-w)
+nmap <Leader>w <Plug>(easymotion-overwin-w)
+map s <Plug>(easymotion-sl)
 
 call vundle#end()            " required
 filetype plugin indent on    " required
