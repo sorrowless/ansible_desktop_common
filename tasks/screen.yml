@@ -6,5 +6,3 @@
 
 - name: Copy .screenrc to user home directory
   copy: src=screen/.screenrc dest=~/.screenrc
-  become: yes
-  become_user: "{{ username }}"

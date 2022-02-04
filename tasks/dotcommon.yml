@@ -1,12 +1,9 @@
 ---
 - name: Copy script for external non-HiDPI monitor usage with XPS
   copy: src=dotcommon/.setup_external_monitor.sh dest=~/.setup_external_monitor.sh
-  become: yes
-  become_user: "{{ username }}"
+  when: ansible_os_family != 'Darwin'
 
 - name: Install parallel utility to run shell tasks in parallel
-  become: yes
-  become_user: "{% if ansible_facts.os_family != 'Darwin' %}root{% else %}{{ username }}{% endif %}"
   package:
     name: parallel
     state: latest
@@ -15,14 +12,10 @@
   template:
     src: dotcommon/sshconfig
     dest: "~/.ssh/config"
-  become: yes
-  become_user: "{{ username }}"
   tags:
     - sshconfig
 
 - name: Install taskwarrior to be a task manager
-  become: yes
-  become_user: "{% if ansible_facts.os_family != 'Darwin' %}root{% else %}{{ username }}{% endif %}"
   package:
     name: task
     state: latest
@@ -37,8 +30,6 @@
     - ansible_facts.os_family != 'Darwin'
 
 - name: Install FZF to have fuzzy search in console with preview
-  become: yes
-  become_user: "{% if ansible_facts.os_family != 'Darwin' %}root{% else %}{{ username }}{% endif %}"
   package:
     name: fzf
     state: latest

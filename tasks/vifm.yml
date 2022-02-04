@@ -6,29 +6,23 @@
 
     #- name: Install ueberzug
     #  become: yes
-    #  become_user: "{{ username }}"
+    #  become_user: "{{ ansible_user }}"
     #  aur:
     #    name: python-ueberzug
 
 - name: Ensure vifm config directory
-  become: yes
-  become_user: "{{ username }}"
   file:
     state: directory
     path: "~/.config/vifm"
     mode: 0750
-    owner: "{{ username }}"
-    group: "{{ username }}"
+    owner: "{{ ansible_user }}"
 
 - name: Copy vifm config to user home directory
-  become: yes
-  become_user: "{{ username }}"
   template:
     src: vifm/vifmrc
     dest: ~/.config/vifm/vifmrc
     mode: 0644
-    owner: "{{ username }}"
-    group: "{{ username }}"
+    owner: "{{ ansible_user }}"
 
 - name: Ensure vifmimg script to work with ueberzug
   copy:
@@ -36,7 +30,6 @@
     dest: "/usr/local/bin/{{ item }}"
     mode: 0755
     owner: root
-    group: root
   with_items:
     - vifmimg
     - vifm-ueberzug
@@ -44,42 +37,36 @@
   become_user: root
 
 - name: Ensure vifm zsh extensions for run with ueberzug
-  become: yes
-  become_user: "{{ username }}"
   copy:
     src: vifm/vifm.zsh
     dest: ~/.rc/vifm
     mode: 0644
-    owner: "{{ username }}"
-    group: "{{ username }}"
+    owner: "{{ ansible_user }}"
   when: zsh_enabled
 
 - name: Ensure vifm devicons
-  become: yes
-  become_user: "{{ username }}"
   git:
     repo: 'https://github.com/sorrowless/vifm_devicons.git'
     dest: "~/.config/vifm/vifm_devicons"
     depth: 1
 
 - name: Ensure local fonts directory
-  become: yes
-  become_user: "{{ username }}"
   file:
     state: directory
     path: "~/.local/share/fonts"
     mode: 0750
-    owner: "{{ username }}"
+    owner: "{{ ansible_user }}"
+  when: ansible_os_family != 'Darwin'
 
 
 - name: Get Bitstream Vera Mono Hack font for vifm
-  become: yes
-  become_user: "{{ username }}"
   get_url:
     url: 'https://github.com/ryanoasis/nerd-fonts/raw/master/patched-fonts/BitstreamVeraSansMono/Regular/complete/Bitstream%20Vera%20Sans%20Mono%20Nerd%20Font%20Complete%20Mono.ttf'
     dest: "~/.local/share/fonts/Bitstream Vera Sans Mono Nerd Font Complete Mono.ttf"
   register: font
+  when: ansible_os_family != 'Darwin'
 
 - name: Update cache
   command: fc-cache
   when: font.changed
+  when: ansible_os_family != 'Darwin'

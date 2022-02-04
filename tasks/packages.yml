@@ -90,3 +90,4 @@
       - zip
       - zoom
       - zsh
+  when: ansible_os_family != 'Darwin'

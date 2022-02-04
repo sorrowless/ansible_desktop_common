@@ -3,19 +3,15 @@
   package:
     name: zsh
     state: latest
-  become: yes
 
 - name: Check user existance and create if does not exists
   user:
-    group: "{{ username }}"
-    name: "{{ username }}"
+    group: "{{ ansible_user }}"
+    name: "{{ ansible_user }}"
     shell: /usr/bin/zsh
-  become: yes
-  become_user: root
+  when: ansible_os_family != 'Darwin'
 
 - name: Ensure zsh rc directory
-  become: yes
-  become_user: "{{ username }}"
   file:
     state: directory
     path: ~/.rc

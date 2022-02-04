@@ -6,17 +6,11 @@
 
 - name: Copy .vimrc to user profile
   copy: src=vim/.vimrc dest=~/.vimrc
-  become: yes
-  become_user: "{{ username }}"
 
 - name: Install needed plugins
   git:
     repo: 'https://github.com/VundleVim/Vundle.vim.git'
     dest: ~/.vim/bundle/Vundle.vim
-  become: yes
-  become_user: "{{ username }}"
 
-- name: Activate needed plugins
-  command: vim +PluginInstall +qall
-  become: yes
-  become_user: "{{ username }}"
+    #- name: Activate needed plugins
+    #  shell: vim +PluginInstall +qall

@@ -1,33 +1,50 @@
 ---
 #- import_tasks: backup.yml
 - import_tasks: lsyncd.yml
+  when: ansible_os_family != 'Darwin'
+
 - import_tasks: dotcommon.yml
   tags: 'dotcommon'
+
 - import_tasks: git.yml
   tags: git
+
 - import_tasks: rofi.yml
   tags: rofi
+  when: ansible_os_family != 'Darwin'
+
 - import_tasks: screen.yml
+
 - import_tasks: sysctl.yml
+  when: ansible_os_family != 'Darwin'
+
 - import_tasks: tmux.yml
   tags: tmux
+
 - import_tasks: vim.yml
   tags: vim
+
 - import_tasks: vifm.yml
   tags: vifm
 
 - import_tasks: zsh.yml
-  when: zsh_enabled
   tags: 'zsh'
 
 - import_tasks: media.yml
   tags: 'media'
+  when: ansible_os_family != 'Darwin'
+
 - import_tasks: tools.yml
   tags: 'tools'
+  when: ansible_os_family != 'Darwin'
+
 - import_tasks: packages.yml
 
 # X11-related tasks
 - import_tasks: x11/konsole.yml
   tags: ['x11', 'terminal', 'konsole']
+  when: ansible_os_family != 'Darwin'
+
 - import_tasks: x11/sddm.yml
   tags: ['x11', 'sddm']
+  when: ansible_os_family != 'Darwin'

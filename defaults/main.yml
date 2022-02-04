@@ -1,8 +1,4 @@
 ---
-# Username to become
-username: user
-user_uid: 1000
-
 git_username: user
 git_email: user@user.org
 # Dict with ssh configs
