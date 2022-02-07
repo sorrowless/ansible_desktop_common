@@ -38,6 +38,8 @@ Plugin 'will133/vim-dirdiff'
 Plugin 'machakann/vim-highlightedyank'
 " EasyMotion
 Plugin 'easymotion/vim-easymotion'
+" Better git merge conflicts handling
+Plugin 'samoshkin/vim-mergetool'
 " Prettify yaml
 Plugin 'prettier/vim-prettier'
 let g:prettier#config#bracket_spacing = 'false'
@@ -55,6 +57,10 @@ map s <Plug>(easymotion-sl)
 
 call vundle#end()            " required
 filetype plugin indent on    " required
+
+" samoshkin/vim-mergetool configuration
+let g:mergetool_layout = 'mr'
+let g:mergetool_prefer_revision = 'local'
 
 " IndentLine plugin settings
 let g:indentLine_char = '▏'
