@@ -36,3 +36,15 @@
 
 - name: Copy zsh completion configuration
   copy: src=zsh/rc/zsh-completion dest=~/.rc/
+
+- name: Copy zsh configuration for git
+  copy: src=zsh/rc/zsh-git dest=~/.rc/
+
+- name: Copy zsh configuration for bitwarden
+  copy: src=zsh/rc/zsh-bitwarden dest=~/.rc/
+
+- name: Copy zsh configuration for kubernetes
+  copy: src=zsh/rc/zsh-kubernetes dest=~/.rc/
+
+- name: Copy zsh configuration for pyenv
+  copy: src=zsh/rc/zsh-pyenv dest=~/.rc/
