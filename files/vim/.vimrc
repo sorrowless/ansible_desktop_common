@@ -10,30 +10,38 @@ call vundle#begin()
 " " let Vundle manage Vundle, required
 Plugin 'VundleVim/Vundle.vim'
 
+" Open files faster with C-f
 Plugin 'junegunn/fzf'
+" Open previously opened files faster with C-p
 Plugin 'pbogut/fzf-mru.vim'
 " Open NerdTree by C-n
 Plugin 'scrooloose/nerdtree'
+" Syntax highlight in nerdtree
 Plugin 'tiagofumo/vim-nerdtree-syntax-highlight'
+"Syntax checking for some file types
 Plugin 'scrooloose/syntastic'
 " Copy to clipboard by pressing cp and paste by presssing cv
+" Example - press cpi' to copy text inside '' quotes
 Plugin 'christoomey/vim-system-copy'
-Plugin 'Yggdroot/indentLine'
+" Enable indentation by <Leader>ig
+Plugin 'nathanaelkane/vim-indent-guides'
+" Work with git easier
 Plugin 'tpope/vim-fugitive'
+" Work with git history. Really helps, can be used only with git-fugitive
+" Call by <Leader>g
 Plugin 'junegunn/gv.vim'
+" Set paste automatically
 Plugin 'roxma/vim-paste-easy'
 " Python suggestions for function names
 Plugin 'davidhalter/jedi-vim'
 " Tab autocompletion
 Plugin 'ervandew/supertab'
-" Easy comment with gC
+" Easy comment with gc. Select lines and run gc, or type gcc on current line
 Plugin 'tomtom/tcomment_vim'
+" Theme I personally prefer
 Plugin 'NLKNguyen/papercolor-theme'
+" Easy creation of todo lists
 Plugin 'aserebryakov/vim-todo-lists'
-Plugin 'MicahElliott/Rocannon'
-Plugin 'dhruvasagar/vim-zoom'
-" To allow to make directory diffs
-Plugin 'will133/vim-dirdiff'
 " Highlight yank
 Plugin 'machakann/vim-highlightedyank'
 " EasyMotion
@@ -48,6 +56,9 @@ let g:prettier#config#print_width = '160'
 " Highlight duration
 let g:highlightedyank_highlight_duration = 1000
 
+call vundle#end()            " required
+filetype plugin indent on    " required
+
 " EasyMotion config
 map  / <Plug>(easymotion-sn)
 omap / <Plug>(easymotion-tn)
@@ -55,17 +66,18 @@ map  <Leader>w <Plug>(easymotion-bd-w)
 nmap <Leader>w <Plug>(easymotion-overwin-w)
 map s <Plug>(easymotion-sl)
 
-call vundle#end()            " required
-filetype plugin indent on    " required
-
 " samoshkin/vim-mergetool configuration
 let g:mergetool_layout = 'mr'
 let g:mergetool_prefer_revision = 'local'
 
-" IndentLine plugin settings
-let g:indentLine_char = '▏'
-let g:indentLine_setConceal = 0
-let g:indentLine_concealcursor = 'c'
+" vim gv plugin config
+nmap <Leader>g :GV!<cr>
+
+" Vim indent guides plugin settings
+let g:indent_guides_auto_colors = 0
+let g:indent_guides_guide_size = 1
+autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  ctermbg=232
+autocmd VimEnter,Colorscheme * :hi IndentGuidesEven ctermbg=233
 
 " Status line settings
 set laststatus=2                             " Disable by default
@@ -112,7 +124,9 @@ let g:syntastic_auto_jump = 2
 
 
 " fzf plugin settings
-map <C-p> :FZF<cr>
+map <C-f> :FZF<cr>
+" fzf-mru plugin settings
+map <C-p> :FZFMru<cr>
 
 " jedi-vim plugin settings
 let g:jedi#use_tabs_not_buffers = 1  " allow use tabs for goto jumps
