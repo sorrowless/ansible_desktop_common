@@ -91,3 +91,10 @@
       - zoom
       - zsh
   when: ansible_os_family != 'Darwin'
+
+- name: Install needed packages
+  package:
+    state: present
+    name:
+      - up
+  when: ansible_os_family == 'Darwin'
