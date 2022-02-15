@@ -97,4 +97,5 @@
     state: present
     name:
       - up
+      - yank
   when: ansible_os_family == 'Darwin'
