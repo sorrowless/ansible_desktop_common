@@ -63,8 +63,8 @@ ensure-ssh-keys() {
 
   # If there is no keys in ssh-add, just add them - we always have some :)
   if ! ssh-add -l >/dev/null; then
-    ssh-add -t 8h
-    echo "Keys were added to an agent for 8 hours"
+    ssh-add -t 14h
+    echo "Keys were added to an agent for 14 hours"
   fi
 }
 

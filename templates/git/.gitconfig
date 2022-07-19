@@ -26,10 +26,16 @@
   puffum = pull --ff-only upstream master
   pushom = push origin master
   pushum = push upstream master
+  ph = push origin head
   pr = "!f() { git fetch $1 pull/$2/head:pull_$2; git co pull_$2; }; f"
 [merge]
   conflictstyle = diff3
-  tool = vim_mergetool
+  tool = vimdiff
+  prompt = false
+[mergetool]
+  keepBackup = false
+[mergetool "vimdiff"]
+  layout = "(LOCAL,BASE,REMOTE)/MERGED"
 [mergetool "vim_mergetool"]
   cmd = vim -f -c "MergetoolStart" "$MERGED" "$BASE" "$LOCAL" "$REMOTE"
   trustExitCode = true

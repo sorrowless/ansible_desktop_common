@@ -54,6 +54,8 @@
   git:
     repo: https://github.com/sorrowless/tools.git
     dest: /opt/tools
+  tags:
+    - shost
 
 - name: Place a symlink of 'shost' to PATH
   become: yes
@@ -62,6 +64,8 @@
     src: /opt/tools/sshhost.py
     dest: /usr/local/bin/shost
     state: link
+  tags:
+    - shost
 
 - name: Include pscircle tasks
   import_tasks: pscircle.yml
