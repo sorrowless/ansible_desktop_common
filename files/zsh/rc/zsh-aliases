@@ -136,3 +136,19 @@ fs() {
 }
 
 alias tf='terraform'
+
+pull() {
+  REMOTE="$1"
+  if [[ -z "$REMOTE" ]]; then
+    REMOTE="origin"
+  fi
+  git pull $REMOTE HEAD
+}
+
+push() {
+  REMOTE="$1"
+  if [[ -z "$REMOTE" ]]; then
+    REMOTE="origin"
+  fi
+  git push $REMOTE HEAD
+}
