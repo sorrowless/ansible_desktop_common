@@ -75,8 +75,10 @@ ssh() {
   else
     filter=${1:-"."}
     target=$(egrep -o "Host (\b.+\b)" $HOME/.ssh/config | awk '{print $2}' | grep $filter | fzf -e --preview 'shost {}')
-    echo "Remoting into: $target"
-    ssh $target
+    if [[ -n $target ]]; then
+      echo "Remoting into: $target"
+      ssh $target
+    fi
   fi
 }
 
