@@ -1,3 +1,7 @@
+#
+# Functions to use internally. They're helping to do tasks which are used
+# commonly
+#
 function who_am_i {
     # this function shows who I am and where I'm sitting now
     # %n is $USERNAME variable. %m is The hostname up to the first ‘.’
@@ -85,6 +89,36 @@ ssh() {
 rsync() {
   ensure-ssh-keys
   /usr/bin/rsync $@
+}
+
+
+###############################################
+# Check host and port for open/closed state
+# Globals:
+#   None
+# Arguments:
+#   hostname or ip address
+#   port to check
+# Returns:
+#   None
+###############################################
+check-port() {
+  # By default use -w2 to timeout in 2 seconds; -v for verbose output; -z for
+  # only scan ports without sending any data to target
+  opts=("-w2" "-vz")
+  if [[ "${PLATFORM}" == "Darwin" ]]; then
+    # Add -G1 for macos; in other case it will wait for connection if port is
+    # unavailable on target side
+    opts+="-G1"
+  fi
+
+  if [[ $# -lt 2 ]]; then
+    echo "Not enough arguments. Usage: check-port <host> <port>" >&2
+  else
+    host=$1
+    port=$2
+    while sleep 1 ; do nc ${opts[@]} ${host} ${port} 2>/dev/null && echo -n '.' || echo -n 'F' ; done
+  fi
 }
 
 # Deprecated
