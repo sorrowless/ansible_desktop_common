@@ -98,4 +98,5 @@
     name:
       - up
       - yank
+      - sniffer
   when: ansible_os_family == 'Darwin'
