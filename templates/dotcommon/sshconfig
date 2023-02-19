@@ -2,12 +2,15 @@
 Host {{ host['alias'] }}
   Hostname {{ host['hostname'] }}
   User {{ host['user'] }}
-  {% if 'identity_file' in host %}
-IdentityFile {{ host['identity_file'] }}
-  {% endif %}
-  {% if 'proxyjump' in host %}
-ProxyJump {{ host['proxyjump'] }}
-  {% endif %}
-Port {{ host['port'] }}
+{% if 'identity_file' in host %}
+  IdentityFile {{ host['identity_file'] }}
+{% endif %}
+{% if 'proxyjump' in host %}
+  ProxyJump {{ host['proxyjump'] }}
+{% endif %}
+  Port {{ host['port'] }}
+{% if 'options' in host %}
+  {{ host['options'] | indent(2)}}
+{% endif %}
 
 {% endfor %}
