@@ -37,3 +37,5 @@ bindkey '<<' history-incremental-search-backward
 bindkey '^H' backward-kill-word
 bindkey '^b' backward-word
 bindkey '^f' forward-word
+# allow fill autosuggestion by pressing cmd + l
+bindkey '^[end' end-of-line

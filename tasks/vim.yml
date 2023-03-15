@@ -1,16 +1,13 @@
 ---
-- name: Install Vim
+- name: Install Neovim
   package:
-    name: vim
+    name: neovim
     state: latest
 
-- name: Copy .vimrc to user profile
-  copy: src=vim/.vimrc dest=~/.vimrc
+- name: Create directory for Neovim config
+  file:
+    path: ~/.config/nvim/
+    state: directory
 
-- name: Install needed plugins
-  git:
-    repo: 'https://github.com/VundleVim/Vundle.vim.git'
-    dest: ~/.vim/bundle/Vundle.vim
-
-    #- name: Activate needed plugins
-    #  shell: vim +PluginInstall +qall
+- name: Copy neovim config to user profile
+  copy: src=nvim/init.vim dest=~/.config/nvim/

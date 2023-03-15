@@ -22,7 +22,7 @@
   tags: tmux
 
 - import_tasks: vim.yml
-  tags: vim
+  tags: neovim
 
 - import_tasks: vifm.yml
   tags: vifm

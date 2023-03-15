@@ -1,4 +1,5 @@
 # Common aliases
+alias vim=nvim
 alias cp='cp -iv'
 alias rcp='rsync -v --progress'
 alias rmv='rsync -v --progress --remove-source-files'
@@ -77,16 +78,17 @@ fkill() {
 }
 alias fzf='fzf --height 70% --border --preview "head -100 {}"'
 alias vif='vim $(fzf)'
-alias open='xdg-open "$(fzf)" 2>/dev/null'
 
 PLATFORM=`uname`
 if [ "${PLATFORM}" != "Darwin" ]; then
   alias ls='ls --color=auto --human-readable --group-directories-first --classify'
   alias ip='ip -4 -o'
   alias rl='f() { readlink -f $1 | pbcopy };f'
+  alias open='xdg-open "$(fzf)" 2>/dev/null'
 else
   alias ls='gls -h --group-directories-first --color=auto'
   alias rl='f() { greadlink -f $1 | pbcopy };f'
+  alias open='open "$(fzf)" 2>/dev/null'
 fi
 alias feh='feh -x -F -Y'
 alias less='less -S'
