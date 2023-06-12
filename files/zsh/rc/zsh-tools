@@ -75,3 +75,9 @@ if (( $+commands[peco] )); then
 fi
 
 export GPG_TTY=$(tty)
+
+if command -v vivid 1>/dev/null 2>&1; then
+  export LS_COLORS="$(vivid generate solarized-dark)"
+else
+  echo "Seems you do not have 'vivid' command installed, using standard LS_COLORS"
+fi

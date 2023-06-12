@@ -54,8 +54,8 @@ if [ -f "${ZGEN_FILE}" ] && [ "$RC" -eq 0 ]; then
     zgen save
   fi
   # Settings for zsh-notify plugin
-  zstyle ':notify:*' error-title Error
-  zstyle ':notify:*' success-title Success
+  zstyle ':notify:*' error-title "Failed in #{time_elapsed}"
+  zstyle ':notify:*' success-title "Success in #{time_elapsed}"
   zstyle ':notify:*' command-complete-timeout 5
   zstyle ':notify:*' enable-on-ssh yes
   # End settings for zsh-notify plugin

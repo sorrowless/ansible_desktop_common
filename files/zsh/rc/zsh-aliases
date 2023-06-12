@@ -81,12 +81,22 @@ alias vif='vim $(fzf)'
 
 PLATFORM=`uname`
 if [ "${PLATFORM}" != "Darwin" ]; then
-  alias ls='ls --color=auto --human-readable --group-directories-first --classify'
+  if command -v exa 1>/dev/null 2>&1; then
+    alias ls='exa --group-directories-first --octal-permissions --no-permissions -g --git --time-style long-iso --color-scale'
+  else
+    echo "exa command was not found. Standard ls is used"
+    alias ls='ls --color=auto --human-readable --group-directories-first --classify'
+  fi
   alias ip='ip -4 -o'
   alias rl='f() { readlink -f $1 | pbcopy };f'
   alias open='xdg-open "$(fzf)" 2>/dev/null'
 else
-  alias ls='gls -h --group-directories-first --color=auto'
+  if command -v exa 1>/dev/null 2>&1; then
+    alias ls='exa --group-directories-first --octal-permissions --no-permissions -g --git --time-style long-iso --color-scale'
+  else
+    echo "exa command was not found. Standard ls is used"
+    alias ls='gls -h --group-directories-first --color=auto'
+  fi
   alias rl='f() { greadlink -f $1 | pbcopy };f'
   alias open='open "$(fzf)" 2>/dev/null'
 fi
