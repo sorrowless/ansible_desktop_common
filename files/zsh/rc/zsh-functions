@@ -55,6 +55,12 @@ ensure-ssh-keys() {
     ssh-agent > ${SSH_AGENT_FILE}
     $CHMOD_CMD 600 ${SSH_AGENT_FILE}
     echo "successfully ran ssh-agent"
+    for key in ${HOME}/.ssh/id_*; do
+      if egrep -q PRIVATE "$key"; then
+        ssh-add "$key"
+      fi
+    done
+    echo "successfully add all found keys"
   fi
 
   # There are cases when you have ssh-agent file but still do not have socket
@@ -155,3 +161,15 @@ tb() {
   fi
   osascript -e "tell application \"/Applications/Tunnelblick.app\"" -e "connect \"$1\"" -e "end tell"
 }
+
+# pkcs11-related Functions
+#
+pkcs11-tool() {
+  ensure-ssh-keys
+  if [[ $# -ge 1 ]]; then
+    /usr/local/bin/pkcs11-tool --module /usr/local/lib/librtpkcs11ecp.dylib $@
+  else
+    /usr/local/bin/pkcs11-tool --module /usr/local/lib/librtpkcs11ecp.dylib -T
+  fi
+}
+

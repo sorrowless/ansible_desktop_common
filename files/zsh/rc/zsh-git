@@ -42,3 +42,40 @@ fco_preview() {
         --ansi --preview="git --no-pager log -150 --pretty=format:%s '..{2}'") || return
   git checkout $(awk '{print $2}' <<<"$target" )
 }
+
+checkout-all-branches() {
+  set -x
+  if [[ $1 == "" ]]; then
+    echo "Usage: checkout-all-branches <origin-name>"
+  fi
+  local_branches=$(git branch | awk '{ print $1 }')
+  for i in $(git branch -r | awk '{ print $1 }'); do
+    if [[ $i == ${1}* ]] && [[ $i != ${1}/HEAD ]]; then
+      local_name=$(echo "$i" | sed -n -e "s:^${1}/::p")
+      if $(echo "${local_branches}" | grep "$local_name"); then
+        echo "Local branch for $i exists"
+      else
+        echo "Will checkout to branch $i"
+        git co $i
+        if [[ $(git rev-parse --abbrev-ref HEAD) == "HEAD" ]]; then
+          git co -b $(echo $i | sed -n -e "s:^${1}/::p")
+        fi
+      fi
+    fi
+  done
+  set +x
+}
+
+update-all-branches() {
+  if [[ $1 == "" ]]; then
+    echo "Usage: checkout-all-branches <origin-name>"
+  fi
+  git remote update
+  for i in $(git branch | sed -n -E -e 's:^(\ |\*)\ ::p'); do
+    git checkout $i
+    git rebase "${1}/${i}"
+    if [[ $? != 0 ]]; then
+      return 1
+    fi
+  done
+}

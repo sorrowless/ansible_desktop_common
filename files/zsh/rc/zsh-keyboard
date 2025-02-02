@@ -39,3 +39,4 @@ bindkey '^b' backward-word
 bindkey '^f' forward-word
 # allow fill autosuggestion by pressing cmd + l
 bindkey '^[end' end-of-line
+bindkey '^[l' end-of-line

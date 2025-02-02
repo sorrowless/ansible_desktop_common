@@ -98,3 +98,13 @@ done
 
 # added by travis gem
 [ ! -s /Users/sbog/.travis/travis.sh ] || source /Users/sbog/.travis/travis.sh
+
+code () { VSCODE_CWD="$PWD" open -n -b "com.microsoft.VSCode" --args $* ;}
+export PATH="/opt/homebrew/opt/mysql-client/bin:$PATH"
+
+# The next line updates PATH for CLI.
+if [ -f '/Users/sbog/yandex-cloud/path.bash.inc' ]; then source '/Users/sbog/yandex-cloud/path.bash.inc'; fi
+
+# The next line enables shell command completion for yc.
+if [ -f '/Users/sbog/yandex-cloud/completion.zsh.inc' ]; then source '/Users/sbog/yandex-cloud/completion.zsh.inc'; fi
+
